@@ -21,6 +21,7 @@ class Map{
 
 class Tile {
     - _goal : Goal
+    - _voisinsAccessibles : Tile.position[] (haut , bas , gauche , droite) ex : [(x1 , y1) , (x2, y2) , (NULL , NULL) ,(NULL , NULL)]
     - _estFixe: boolean
     - _position : ( x, y )
     - orientations : Boolean[4] (haut , bas , gauche , droite)
@@ -79,7 +80,7 @@ class Position {
 
 class Game {
     - _board : Board
-    - players : Player[*]
+    - players : Player[4]
     -
 
 }
