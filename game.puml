@@ -19,19 +19,68 @@ class Pawn{
 class Map{
 }
 
-class Tile{
-- _estFixe: boolean
-- _image: Image
-- _x : Integer
-- _y : Integer
-+ <<Create>> Tile(estFixe : boolean, image String)
+class Tile {
+    - _goal : Goal
+    - _estFixe: boolean
+    - _position : ( x, y )
+    - orientations : Boolean[4] (haut , bas , gauche , droite)
+    + <<Create>> Tile(estFixe : boolean,  position (int x , int y))
 }
-abstract Card{
-- _background_path : String
-- _image : Image
-+ <<Create>> Card(_background_path : String)
-+ isAccessible() : boolean
+
+class Enum_Goals {
+    - goal1
+    - goal2
+    - goal3
+    - ...
 }
-class Game{
+
+class Tile_Angle extends Tile{
+    - _estFixe: boolean
+    - _position : ( x, y )
+    + <<Create>> Tile_Angle(estFixe : boolean,  position (int x , int y))
+}
+
+class Tile_Straight extends Tile {
+    - _estFixe: boolean
+    - _position : ( x, y )
+    + <<Create>> Tile_Straight(estFixe : boolean,  position (int x , int y))
+}
+
+class Tile_T extends Tile {
+    - _estFixe: boolean
+    - _position : ( x, y )
+    + <<Create>> Tile_T(estFixe : boolean,  position (int x , int y))
+}
+
+abstract Card {
+    - _background_path : String
+    - _image : Image
+    + <<Create>> Card(_background_path : String)
+    + isAccessible() : boolean
+    }
+
+
+class TEST_Enum_Orientation {
+    - DROITE
+    - GAUCHE
+    - HAUT
+    - BAS
+}
+
+class TEST_Rotator {
+    - rotate( x * 90° )
+}
+
+
+class Position {
+    - x : int
+    - y : int
+}
+
+class Game {
+    - _board : Board
+    - players : Player[*]
+    -
+
 }
 @enduml
