@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public class Tiles_Straight extends Tiles{
+public class Tiles_Straight extends Tiles {
+
     public Position _position;
     public ArrayList<Tiles> _listVoisins; // ex : Tile.position[] (haut , bas , gauche , droite) ex : [(x1 , y1) , (x2, y2) , (NULL , NULL) ,(NULL , NULL)]
     public ArrayList<Boolean> _doorsUnlocked; // ex : this.doorsUnlocked[] (haut , bas , gauche , droite) ex : [TRUE,TRUE,FALSE,FALSE]
