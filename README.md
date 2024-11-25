@@ -80,7 +80,7 @@ Vous devez modéliser et implémenter les fonctionalités ci-dessous.
 
 8 - La **détection de la fin du tour d'un joueur**
 
-9 - La **détection de la fin de partie** lorsqu'un joueur a trouvé tous ses objectifs et est revenu à sa position de départ
+9 - La **détection de la fin de partie** lorsqu'un joueur a trouvé tous ses objectifs et est revenu à sa _position de départ
 
 > ***Conseil** : Faites la conception UML qui tient en compte tous les niveaux mais implémentez d'abord le jeu en entier avec tous les niveaux 1 avant d'implémenter les autres niveaux.*
 

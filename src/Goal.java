@@ -1,18 +1,17 @@
 public class Goal {
-    public class Goal {
-        private String description;
+    private int _numgoal;
 
-        public Goal(String description) {
-            this.description = description;
-        }
+    public Goal(int numgoal) {
+        this._numgoal = numgoal;
+    }
 
-        // Getters and setters
-        public String getDescription() {
-            return description;
-        }
+    // Getters and setters
+    public int getNumGoal() {
+        return _numgoal;
+    }
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
+    public void setNumGoal(int numgoal) {
+        this._numgoal = numgoal;
     }
 }
+

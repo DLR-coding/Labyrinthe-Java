@@ -2,23 +2,23 @@ public class Pawn {
     private Position _position;
 
     public Pawn(Position position) {
-        this.position = position;
+        this._position = position;
     }
 
-    public boolean move(Move move, Board board) {
-        if (isMoveValid(move, board)) {
-            switch (move.getDirection()) {
+    public boolean move(int direction, Board board) {
+        if (isMoveValid(direction, board)) {
+            switch (direction) {
                 case 0: // Haut
-                    position.setY(position.getY() - 1);
+                    _position.setY(_position.getY() - 1);
                     break;
                 case 1: // Droite
-                    position.setX(position.getX() + 1);
+                    _position.setX(_position.getX() + 1);
                     break;
-                case 2: // Bas
-                    position.setY(position.getY() + 1);
+                case 2: // Bass
+                    _position.setY(_position.getY() + 1);
                     break;
                 case 3: // Gauche
-                    position.setX(position.getX() - 1);
+                    _position.setX(_position.getX() - 1);
                     break;
             }
             return true;
@@ -26,10 +26,10 @@ public class Pawn {
         return false;
     }
 
-    public boolean isMoveValid(Move move, Board board) {
-        Position newPosition = new Position(position.getX(), position.getY());
-        switch (move.getDirection()) {
-            case 0: // HautS
+    public boolean isMoveValid(int direction, Board board) {
+        Position newPosition = new Position(_position.getX(), _position.getY());
+        switch (direction) {
+            case 0: // Haut
                 newPosition.setY(newPosition.getY() - 1);
                 break;
             case 1: // Droite
@@ -47,24 +47,21 @@ public class Pawn {
             return false; // Hors des limites du plateau
         }
 
-        Tiles currentTile = board.getTile(position);
+        Tiles currentTile = board.getTile(_position);
         Tiles newTile = board.getTile(newPosition);
 
         if (currentTile == null || newTile == null) {
-            return false; // Pas de tuile à la position actuelle ou nouvelle
+            return false; // Pas de tuile à la _position actuelle ou nouvelle
         }
 
-        return currentTile.isPathOpen(move.getDirection()) && newTile.isPathOpen((move.getDirection() + 2) % 4);
+        return currentTile.isPathOpen(direction) && newTile.isPathOpen((direction + 2) % 4);
     }
 
-
-
-    // Getters and setters
-    public Position getPosition() {
-        return position;
+    public Position get_position() {
+        return _position;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void set_position(Position position) {
+        this._position = position;
     }
 }

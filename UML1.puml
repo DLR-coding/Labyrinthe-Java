@@ -1,71 +1,86 @@
 @startuml
 
-class Game {
-  - board: Board
-  - pawns: List<Pawn>
-  + startGame()
-  + endGame()
-}
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
 
 class Board {
-  - tiles: Tile[7][7]
-  + generateBoard()
-  + placeTiles()
-  + moveRowOrColumn(Move)
-  + getTile(Position position)
+  - _extraTile: Tiles
+  - _tiles_list : ArrayList<ArrayList<Tiles>>
+  + <<Create>> Board():
+  + addExtraTile(extratile:Tiles)
+  + moveRow(direction:Integer  , extratile:Tiles)
+  + moveColumn(direction:Integer  , extratile:Tiles)
+  + getTile(Position): Tiles
+  + setTile(Position, Tiles)
 }
 
-abstract class Tile {
-  - type: String
-  - orientation: int
-  - goal: Goal
-  - paths: boolean[4]
-  + rotate()
-  + isPathOpen(int direction)
-}
+class Game {
+  + <<Create>>Game():
+  - _board: Board
+  - _pawns: List<Pawn>
+  + startGame()
+  + endGame()
 
-class Tile_Straight {
-  + Tile_Straight(int orientation, Goal goal)
-}
-
-class Tile_T {
-  + Tile_T(int orientation, Goal goal)
-}
-
-class Tile_Angle {
-  + Tile_Angle(int orientation, Goal goal)
 }
 
 class Goal {
-  - description: String
+  - _numGoal: Integer
+  + <<Create>> Goal(numGoal : Integer)
+  + getNumGoal(): Integer
+  + setNumGoal(numgoal:Integer)
 }
+
+
 
 class Pawn {
-  - position: Position
-  + move(Move, Board)
-  + isMoveValid(Move, Board)
-}
 
-class Static_Move {
-  - board: Board
-  - type: String
-  - direction: int
-  - position: Position
-  +
+  - _position: Position
+  + <<Create>> Pawn(Position):
+  + move( direction:Integer , board:Board): Boolean
+  + isMoveValid(Move, Board): Boolean
+  + getPosition(): Position
+  + setPosition(Position)
 }
-
 class Position {
-  - x: int
-  - y: int
+    - x: Integer
+  - y: Integer
+  + <<Create>> Position(x:Integer, y:Integer)
+  + setX(Integer)
+  + getX(): Integer
+  + getY(): Integer
+  + setY(Integer)
+}
+class Tiles <<abstract>> {
+    - _type : String
+  -  _orientation: Integer
+  -  _goal: Goal
+  -  _paths: ArrayList<Boolean>
+  + <<Create>> Tiles(type:String, orientation:Integer , goal:Goal, pathsTab:ArrayList<Boolean>)
+  + rotate()
+    + isPathOpen(direction:Integer): Boolean
+
+  + setPaths(ArrayList<Boolean>)
+  + getPaths(): ArrayList<Boolean>
+  + setOrientation(orientation:Integer)
+  + getGoal(): Goal
+  + setGoal(Goal)
+  + getOrientation(): Integer
+  + setType(String)
+  + getType(): String
+}
+class Tiles_Angle extends Tiles {
+  + <<Create>> Tiles_Angle(oreintation:Integer, goal:Goal):
+}
+class Tiles_Straight extends Tiles {
+  + <<Create>> Tiles_Straight(oreintation:Integer, goal:Goal):
 }
 
- class TileFactory {
-  + createTile(String type, int orientation, Goal goal): Tile
+class Tiles_T extends Tiles {
+  + <<Create>> Tiles_T(oreintation:Integer, goal:Goal):
 }
 
 
-Tile <|-- Tile_Straight
-Tile <|-- Tile_T
-Tile <|-- Tile_Angle
 
 @enduml
