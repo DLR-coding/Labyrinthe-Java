@@ -1,0 +1,71 @@
+@startuml
+
+class Game {
+  - board: Board
+  - pawns: List<Pawn>
+  + startGame()
+  + endGame()
+}
+
+class Board {
+  - tiles: Tile[7][7]
+  + generateBoard()
+  + placeTiles()
+  + moveRowOrColumn(Move)
+  + getTile(Position position)
+}
+
+abstract class Tile {
+  - type: String
+  - orientation: int
+  - goal: Goal
+  - paths: boolean[4]
+  + rotate()
+  + isPathOpen(int direction)
+}
+
+class Tile_Straight {
+  + Tile_Straight(int orientation, Goal goal)
+}
+
+class Tile_T {
+  + Tile_T(int orientation, Goal goal)
+}
+
+class Tile_Angle {
+  + Tile_Angle(int orientation, Goal goal)
+}
+
+class Goal {
+  - description: String
+}
+
+class Pawn {
+  - position: Position
+  + move(Move, Board)
+  + isMoveValid(Move, Board)
+}
+
+class Static_Move {
+  - board: Board
+  - type: String
+  - direction: int
+  - position: Position
+  +
+}
+
+class Position {
+  - x: int
+  - y: int
+}
+
+ class TileFactory {
+  + createTile(String type, int orientation, Goal goal): Tile
+}
+
+
+Tile <|-- Tile_Straight
+Tile <|-- Tile_T
+Tile <|-- Tile_Angle
+
+@enduml
