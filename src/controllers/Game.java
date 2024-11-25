@@ -1,29 +1,39 @@
 package controllers;
 
-import models.Tile;
-import view.Map;
-
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
+
 public class Game {
-    public static void main(String[] args) {
-        Map fenetre = new Map();
-        // Définir les dimensions de la fenêtre
-        fenetre.setSize(800, 800);
+    private Board board;
+    private List<Pawn> pawns;
 
-        // Indiquer quoi faire quand on ferme la fenêtre
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public Game() {
+        this.board = new Board();
+        this.pawns = new ArrayList<>();
+    }
 
-        // Centrer la fenêtre à l'écran
-        fenetre.setLocationRelativeTo(null);
+    public void startGame() {
+        // Initialiser le plateau et les pions
+    }
 
-        // Rendre la fenêtre visible
-        fenetre.setVisible(true);
+    public void endGame() {
+        // Terminer la partie
+    }
 
-        // Géneration des tuiles **************************************
-        List<Tile> _lst_tiles = new ArrayList<Tile>();
+    // Getters and setters
+    public Board getBoard() {
+        return board;
+    }
 
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public List<Pawn> getPawns() {
+        return pawns;
+    }
+
+    public void setPawns(List<Pawn> pawns) {
+        this.pawns = pawns;
     }
 }
