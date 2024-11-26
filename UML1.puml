@@ -88,6 +88,8 @@ class ConcreteTileFactory {
 }
 
 
+
+
 Board "1" *---> "49\n-" Tiles : composé de \t\t >
 Game "1" *---> "1" Board : composé de \t\t >
 Game "1" *---> "4" Pawn : composé de \t\t >
