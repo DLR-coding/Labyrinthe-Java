@@ -7,14 +7,18 @@ public class Main {
         Board board = new Board();
 
         // Créer différents types de tuiles
-        Tiles straightTile = tileFactory.createTile("Straight", 0, null);
-        Tiles tTile = tileFactory.createTile("T", 0, null);
-        Tiles angleTile = tileFactory.createTile("Angle", 0, null);
+        Tiles straightTile = tileFactory.createTile_Straight(0,null);
+        Tiles tTile = tileFactory.createT(0, null);
+        Tiles angleTile = tileFactory.createAngle(0, null);
+        Tiles straightTile2 = tileFactory.createTile_Straight(1,null);
+
 
         // Placer les tuiles sur le plateau
         board.setTile(new Position(0, 0), straightTile);
         board.setTile(new Position(0, 1), tTile);
         board.setTile(new Position(0, 2), angleTile);
+        board.setTile(new Position(1, 0), straightTile2);
+
 
         // Créer un pion et le placer en position (0,0)
         Position initialPosition = new Position(0, 0);
@@ -29,37 +33,41 @@ public class Main {
 
         // Essayer de déplacer le pion vers le bas
         if (pawn.move(2, board)) {
+            System.out.print("Pion déplacé vers le bas.");
+        } else {
+            System.out.println("Déplacement vers le bas impossible , il faut rotate.");
+        }
+        ArrayList<Boolean> paths = straightTile2.getPaths();
+        System.out.print("straightTile2 paths : { ");
+        for (int i = 0; i < paths.size(); i++) {
+            System.out.print(paths.get(i) + " , ");
+        }
+        System.out.print("}");
+        System.out.println();
+
+        //Tourner la Tuile straighttile
+        straightTile.rotate();
+        ArrayList<Boolean> paths2 = straightTile.getPaths();
+        System.out.print("straightTile NEW paths : { ");
+        for (int i = 0; i < paths2.size(); i++) {
+            System.out.print(paths2.get(i) + " , ");
+        }
+        System.out.print("}");
+        System.out.println();
+
+
+        if (pawn.move(2, board)) {
             System.out.println("Pion déplacé vers le bas.");
         } else {
-            System.out.println("Déplacement vers le bas impossible.");
+            System.out.println("Déplacement vers le bas toujours impossible");
         }
+
+
+
+
 
         // Afficher l'état du plateau après le mouvement
         board.printBoard(pawns);
 
-        // Déplacer une ligne vers le haut
-        board.moveRow(1, 0); // 0 pour haut
-
-        // Afficher l'état du plateau après le mouvement de ligne
-        board.printBoard(pawns);
-
-        // Déplacer une colonne vers la droite
-        board.moveColumn(1, 1); // 1 pour droite
-
-        // Afficher l'état du plateau après le mouvement de colonne
-        board.printBoard(pawns);
-
-        // Ajouter la tuile supplémentaire à la ligne 1
-        Tiles extraTile = tileFactory.createTile("Straight", 0, null);
-        board.addExtraTile(extraTile, 1, 0); // 0 pour ligne
-
-        // Afficher l'état du plateau après l'ajout de la tuile supplémentaire
-        board.printBoard(pawns);
-
-        // Ajouter la tuile supplémentaire à la colonne 1
-        board.addExtraTile(extraTile, 1, 1); // 1 pour colonne
-
-        // Afficher l'état du plateau après l'ajout de la tuile supplémentaire
-        board.printBoard(pawns);
     }
 }

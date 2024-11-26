@@ -6,8 +6,8 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 
 class Board {
-  - extraTile: Tiles
-  - tilesList: ArrayList<ArrayList<Tiles>>
+  - _extraTile: Tiles
+  - _tilesList: ArrayList<ArrayList<Tiles>>
   + <<Create>> Board():
   + addExtraTile(extraTile: Tiles)
   + moveRow(direction: Integer, extraTile: Tiles)
@@ -18,21 +18,21 @@ class Board {
 
 class Game {
   + <<Create>>Game():
-  - board: Board
-  - pawns: List<Pawn>
+  - _board: Board
+  - _pawns: List<Pawn>
   + startGame()
   + endGame()
 }
 
 class Goal {
-  - numGoal: Integer
+  - _numGoal: Integer
   + <<Create>> Goal(numGoal: Integer)
   + getNumGoal(): Integer
   + setNumGoal(numGoal: Integer)
 }
 
 class Pawn {
-  - position: Position
+  - _position: Position
   + <<Create>> Pawn(position: Position)
   + move(direction: Integer, board: Board): Boolean
   + isMoveValid(move: Move, board: Board): Boolean
@@ -41,8 +41,8 @@ class Pawn {
 }
 
 class Position {
-  - x: Integer
-  - y: Integer
+  - _x: Integer
+  - _y: Integer
   + <<Create>> Position(x: Integer, y: Integer)
   + setX(x: Integer)
   + getX(): Integer
@@ -51,10 +51,10 @@ class Position {
 }
 
 class Tiles <<abstract>> {
-  - type: String
-  - orientation: Integer
-  - goal: Goal
-  - paths: ArrayList<Boolean>
+  - _type: String
+  - _orientation: Integer
+  - _goal: Goal
+  - _paths: ArrayList<Boolean>
   + <<Create>> Tiles(type: String, orientation: Integer, goal: Goal, paths: ArrayList<Boolean>)
   + rotate()
   + isPathOpen(direction: Integer): Boolean
@@ -82,7 +82,9 @@ class Tiles_T extends Tiles {
 }
 
 class ConcreteTileFactory {
-    + createTile(String type, int orientation, Goal goal) : Tiles
+    + createTile_Straight(int orientation, Goal goal) : Tiles_Straight
+    + createAngle(int orientation, Goal goal) : Tiles_Angle
+    + createT(int orientation, Goal goal) : Tiles_T
 }
 
 
