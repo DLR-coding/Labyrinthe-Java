@@ -6,81 +6,90 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 
 class Board {
-  - _extraTile: Tiles
-  - _tiles_list : ArrayList<ArrayList<Tiles>>
+  - extraTile: Tiles
+  - tilesList: ArrayList<ArrayList<Tiles>>
   + <<Create>> Board():
-  + addExtraTile(extratile:Tiles)
-  + moveRow(direction:Integer  , extratile:Tiles)
-  + moveColumn(direction:Integer  , extratile:Tiles)
-  + getTile(Position): Tiles
-  + setTile(Position, Tiles)
+  + addExtraTile(extraTile: Tiles)
+  + moveRow(direction: Integer, extraTile: Tiles)
+  + moveColumn(direction: Integer, extraTile: Tiles)
+  + getTile(position: Position): Tiles
+  + setTile(position: Position, tile: Tiles)
 }
 
 class Game {
   + <<Create>>Game():
-  - _board: Board
-  - _pawns: List<Pawn>
+  - board: Board
+  - pawns: List<Pawn>
   + startGame()
   + endGame()
-
 }
 
 class Goal {
-  - _numGoal: Integer
-  + <<Create>> Goal(numGoal : Integer)
+  - numGoal: Integer
+  + <<Create>> Goal(numGoal: Integer)
   + getNumGoal(): Integer
-  + setNumGoal(numgoal:Integer)
+  + setNumGoal(numGoal: Integer)
 }
-
-
 
 class Pawn {
-
-  - _position: Position
-  + <<Create>> Pawn(Position):
-  + move( direction:Integer , board:Board): Boolean
-  + isMoveValid(Move, Board): Boolean
+  - position: Position
+  + <<Create>> Pawn(position: Position)
+  + move(direction: Integer, board: Board): Boolean
+  + isMoveValid(move: Move, board: Board): Boolean
   + getPosition(): Position
-  + setPosition(Position)
+  + setPosition(position: Position)
 }
+
 class Position {
-    - x: Integer
+  - x: Integer
   - y: Integer
-  + <<Create>> Position(x:Integer, y:Integer)
-  + setX(Integer)
+  + <<Create>> Position(x: Integer, y: Integer)
+  + setX(x: Integer)
   + getX(): Integer
   + getY(): Integer
-  + setY(Integer)
+  + setY(y: Integer)
 }
-class Tiles <<abstract>> {
-    - _type : String
-  -  _orientation: Integer
-  -  _goal: Goal
-  -  _paths: ArrayList<Boolean>
-  + <<Create>> Tiles(type:String, orientation:Integer , goal:Goal, pathsTab:ArrayList<Boolean>)
-  + rotate()
-    + isPathOpen(direction:Integer): Boolean
 
-  + setPaths(ArrayList<Boolean>)
+class Tiles <<abstract>> {
+  - type: String
+  - orientation: Integer
+  - goal: Goal
+  - paths: ArrayList<Boolean>
+  + <<Create>> Tiles(type: String, orientation: Integer, goal: Goal, paths: ArrayList<Boolean>)
+  + rotate()
+  + isPathOpen(direction: Integer): Boolean
+
+  + setPaths(paths: ArrayList<Boolean>)
   + getPaths(): ArrayList<Boolean>
-  + setOrientation(orientation:Integer)
+  + setOrientation(orientation: Integer)
   + getGoal(): Goal
-  + setGoal(Goal)
+  + setGoal(goal: Goal)
   + getOrientation(): Integer
-  + setType(String)
+  + setType(type: String)
   + getType(): String
 }
+
 class Tiles_Angle extends Tiles {
-  + <<Create>> Tiles_Angle(oreintation:Integer, goal:Goal):
+  + <<Create>> Tiles_Angle(orientation: Integer, goal: Goal):
 }
+
 class Tiles_Straight extends Tiles {
-  + <<Create>> Tiles_Straight(oreintation:Integer, goal:Goal):
+  + <<Create>> Tiles_Straight(orientation: Integer, goal: Goal):
 }
 
 class Tiles_T extends Tiles {
-  + <<Create>> Tiles_T(oreintation:Integer, goal:Goal):
+  + <<Create>> Tiles_T(orientation: Integer, goal: Goal):
+}
+
+class ConcreteTileFactory {
+    + createTile(String type, int orientation, Goal goal) : Tiles
 }
 
 
-
+Board "1" *---> "49\n-" Tiles : composé de \t\t >
+Game "1" *---> "1" Board : composé de \t\t >
+Game "1" *---> "4" Pawn : composé de \t\t >
+Pawn "1" *---> "1" Position : composé de \t\t >
+Tiles "1" *---> "1" Goal : composé de \t\t >
+ConcreteTileFactory "1" *---> "1" Tiles : crée \t\t >
 @enduml

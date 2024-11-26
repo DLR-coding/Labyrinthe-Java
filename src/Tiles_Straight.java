@@ -6,7 +6,7 @@ public class Tiles_Straight extends Tiles {
         super("Straight",
                 orientation,
                 goal,
-                new ArrayList<>(Arrays.asList(false, true, false, true)));
+                new ArrayList<>(Arrays.asList(false, true, false, true))); // default horizontal -
         for (int i = 0; i < orientation; i++) {
             this.rotate();
         }
