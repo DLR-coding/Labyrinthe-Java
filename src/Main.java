@@ -8,8 +8,8 @@ public class Main {
 
         // Créer différents types de tuiles
         Tiles straightTile = tileFactory.createTile_Straight(0,null);
-        Tiles tTile = tileFactory.createT(0, null);
-        Tiles angleTile = tileFactory.createAngle(0, null);
+        Tiles tTile = tileFactory.createTile_T(0, null);
+        Tiles angleTile = tileFactory.createTile_Angle(0, null);
         Tiles straightTile2 = tileFactory.createTile_Straight(1,null);
 
 
@@ -32,7 +32,7 @@ public class Main {
         board.printBoard(pawns);
 
         // Essayer de déplacer le pion vers le bas
-        if (pawn.move(2, board)) {
+        if (pawn.move(Direction.DOWN, board)) {
             System.out.print("Pion déplacé vers le bas.");
         } else {
             System.out.println("Déplacement vers le bas impossible , il faut rotate.");
@@ -56,7 +56,7 @@ public class Main {
         System.out.println();
 
 
-        if (pawn.move(2, board)) {
+        if (pawn.move(Direction.DOWN, board)) {
             System.out.println("Pion déplacé vers le bas.");
         } else {
             System.out.println("Déplacement vers le bas toujours impossible");

@@ -5,19 +5,19 @@ public class Pawn {
         this._position = position;
     }
 
-    public boolean move(int direction, Board board) {
+    public boolean move(Direction direction, Board board) {
         if (isMoveValid(direction, board)) {
             switch (direction) {
-                case 0: // Haut
+                case UP: // Haut
                     _position.setY(_position.getY() - 1);
                     break;
-                case 1: // Droite
+                case RIGHT: // Droite
                     _position.setX(_position.getX() + 1);
                     break;
-                case 2: // Bass
+                case DOWN: // Bas
                     _position.setY(_position.getY() + 1);
                     break;
-                case 3: // Gauche
+                case LEFT: // Gauche
                     _position.setX(_position.getX() - 1);
                     break;
             }
@@ -26,19 +26,19 @@ public class Pawn {
         return false;
     }
 
-    public boolean isMoveValid(int direction, Board board) {
+    public boolean isMoveValid(Direction direction, Board board) {
         Position newPosition = new Position(_position.getX(), _position.getY());
         switch (direction) {
-            case 0: // Haut
+            case UP: // Haut
                 newPosition.setY(newPosition.getY() - 1);
                 break;
-            case 1: // Droite
+            case RIGHT: // Droite
                 newPosition.setX(newPosition.getX() + 1);
                 break;
-            case 2: // Bas
+            case DOWN: // Bas
                 newPosition.setY(newPosition.getY() + 1);
                 break;
-            case 3: // Gauche
+            case LEFT: // Gauche
                 newPosition.setX(newPosition.getX() - 1);
                 break;
         }
@@ -50,11 +50,11 @@ public class Pawn {
         Tiles currentTile = board.getTile(_position);
         Tiles newTile = board.getTile(newPosition);
 
-        if (currentTile == null || newTile == null) {
-            return false; // Pas de tuile à la _position actuelle ou nouvelle
+        if (newTile == null) {
+            return false; // Pas de tuile à la _position nouvelle
         }
 
-        return currentTile.isPathOpen(direction) && newTile.isPathOpen((direction + 2) % 4);
+        return currentTile.isPathOpen(direction) && newTile.isPathOpen(Direction.values()[(direction.ordinal() + 2) % 4]);
     }
 
     public Position getPosition() {

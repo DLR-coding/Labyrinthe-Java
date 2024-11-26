@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Board {
     private ArrayList<ArrayList<Tiles>> tiles;
-    private Tiles extraTile;
+    private Tiles _extraTile;
 
     public Board() {
         this.tiles = new ArrayList<>();
@@ -76,7 +76,7 @@ public class Board {
                     tiles.get(number).set(i + 1, tiles.get(number).get(i));
                 }
                 tiles.get(number).set(0, extraTile);
-                this.extraTile = removedTile;
+                this._extraTile = removedTile;
             }
         } else if (direction == 1) {
             // Ajouter à la colonne spécifiée
@@ -90,7 +90,7 @@ public class Board {
                     }
                 }
                 tiles.get(0).set(number, extraTile);
-                this.extraTile = removedTile;
+                this._extraTile = removedTile;
             }
         }
     }

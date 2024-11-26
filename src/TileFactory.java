@@ -4,11 +4,11 @@ public class TileFactory {
         return new Tiles_Straight(orientation, goal);
     }
 
-    public Tiles createT(int orientation, Goal goal) {
+    public Tiles createTile_T(int orientation, Goal goal) {
         return new Tiles_T(orientation, goal);
     }
 
-    public Tiles createAngle(int orientation, Goal goal) {
+    public Tiles createTile_Angle(int orientation, Goal goal) {
         return new Tiles_Angle(orientation, goal);
     }
 }
