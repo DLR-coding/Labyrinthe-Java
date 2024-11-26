@@ -101,9 +101,9 @@ public class Board {
             for (int j = 0; j < 7; j++) {
                 Tiles tile = tiles.get(i).get(j);
                 if (tile == null) {
-                    System.out.print("[   ] ");
+                    System.out.print("[  x , x , x , x ,]");
                 } else {
-                    System.out.print("[ " + tile.getType().charAt(0) + " ] ");
+                System.out.print("[ " + tile.getDisplayPaths() +  "]" );
                 }
             }
             System.out.println();
@@ -111,8 +111,7 @@ public class Board {
 
         System.out.println("Positions des pions:");
         for (Pawn pawn : pawns) {
-            System.out.println("Pion à la position: (" + pawn.get_position().getX() + ", " + pawn.get_position().getY() + ")");
+            System.out.println("Pion à la position: (" + pawn.getPosition().getX() + ", " + pawn.getPosition().getY() + ")");
         }
     }
-
 }

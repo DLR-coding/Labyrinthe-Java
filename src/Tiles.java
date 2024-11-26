@@ -61,4 +61,12 @@ public abstract class Tiles {
     public void setPaths(ArrayList<Boolean> paths) {
         this.paths = paths;
     }
+
+    public String getDisplayPaths() {
+        String sb = (paths.get(0) ? " ↑ ," : " x ,") + // Haut
+                (paths.get(1) ? " → ," : " x ,") + // Droite
+                (paths.get(2) ? " ↓ ," : " x ,") + // Bas
+                (paths.get(3) ? " ← ," : " x ,"); // Gauche
+        return sb;
+    }
 }

@@ -57,7 +57,7 @@ public class Pawn {
         return currentTile.isPathOpen(direction) && newTile.isPathOpen((direction + 2) % 4);
     }
 
-    public Position get_position() {
+    public Position getPosition() {
         return _position;
     }
 

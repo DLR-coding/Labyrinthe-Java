@@ -63,9 +63,6 @@ public class Main {
         }
 
 
-
-
-
         // Afficher l'état du plateau après le mouvement
         board.printBoard(pawns);
 
