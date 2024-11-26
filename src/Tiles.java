@@ -3,13 +3,13 @@ import java.util.ArrayList;
 public abstract class Tiles {
     protected String _type;
     // _orientation utile lorsqu'on génère les Tiles. Pour savoir cmb de fois ont rotate() leur init paths
-    protected int orientation; // 0 pour 0 degrés, 1 pour 90 degrés, 2 pour 180 degrés, 3 pour 270 degrés
+    protected int _orientation; // 0 pour 0 degrés, 1 pour 90 degrés, 2 pour 180 degrés, 3 pour 270 degrés
     protected Goal _goal;
     protected ArrayList<Boolean> paths; // paths[0] = haut, paths[1] = droite, paths[2] = bas, paths[3] = gauche
 
     public Tiles(String type, int orientation, Goal goal, ArrayList<Boolean> paths) {
         this._type = type;
-        this.orientation = orientation;
+        this._orientation = orientation;
         this._goal = goal;
         this.paths = paths;
     }
@@ -39,12 +39,12 @@ public abstract class Tiles {
         this._type = _type;
     }
 
-    public int getOrientation() {
-        return orientation;
+    public int get_orientation() {
+        return _orientation;
     }
 
-    public void setOrientation(int orientation) {
-        this.orientation = orientation;
+    public void set_orientation(int _orientation) {
+        this._orientation = _orientation;
     }
 
     public Goal get_goal() {
