@@ -14,4 +14,3 @@ public class Goal {
         this._numgoal = numgoal;
     }
 }
-
