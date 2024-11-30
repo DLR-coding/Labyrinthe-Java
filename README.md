@@ -47,8 +47,8 @@ Vous devez modéliser et implémenter les fonctionalités ci-dessous.
 
 1 - La **génératon des tuiles**
 
-- Niveau 1 : avec une orientation initiale fixe
-- Niveau 2 : avec une orientation initiale aléatoire
+- Niveau 1 : avec une _orientation initiale fixe
+- Niveau 2 : avec une _orientation initiale aléatoire
 
 2 - Le **génération du plateau** avec les tuiles :
 

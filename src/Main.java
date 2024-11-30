@@ -1,65 +1,59 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        TileFactory tileFactory = new TileFactory();
         Board board = new Board();
 
-        // Créer différents types de tuiles
-        Tiles straightTile = tileFactory.createTile("Straight", 0, null);
-        Tiles tTile = tileFactory.createTile("T", 0, null);
-        Tiles angleTile = tileFactory.createTile("Angle", 0, null);
+        // Créer la factory de tuiles
+        TileFactory tileFactory = new TileFactory();
 
-        // Placer les tuiles sur le plateau
-        board.setTile(new Position(0, 0), straightTile);
-        board.setTile(new Position(0, 1), tTile);
-        board.setTile(new Position(0, 2), angleTile);
+        // Créer et placer les tuiles
+        Tile tileS1 = tileFactory.createTileStraight(Orientation.NORTH, null); // Horizontal
+        Tile tileS2 = tileFactory.createTileStraight(Orientation.EAST, null); // Vertical
 
-        // Créer un pion et le placer en position (0,0)
+        board.setTile(new Position(0, 0), tileS1);
+        board.setTile(new Position(1, 0), tileS2);
+
+        // Créer et placer le pion
         Position initialPosition = new Position(0, 0);
         Pawn pawn = new Pawn(initialPosition);
-
-        // Ajouter le pion à la liste des pions du jeu
-        List<Pawn> pawns = new ArrayList<>();
-        pawns.add(pawn);
-
+        List<Pawn> pawnlist = new ArrayList<>();
+        pawnlist.add(pawn);
         // Afficher l'état initial du plateau
-        board.printBoard(pawns);
+        System.out.println("État initial du plateau:");
+        board.printBoard(pawnlist);
+
+
 
         // Essayer de déplacer le pion vers le bas
-        if (pawn.move(2, board)) {
+        if (pawn.move(Direction.DOWN, board)) {
+            System.out.print("Pion déplacé vers le bas.");
+        } else {
+            System.out.println("Déplacement vers le bas impossible , il faut rotate.");
+        }
+
+        // Afficher l'état actuel du tableau de paths de TileS1
+        System.out.println("État actuel du tableau de paths de TileS1: " + tileS1.getDisplayPaths());
+
+        // Rotater TileS1 et afficher le nouvel état de son tableau de paths
+        tileS1.rotate();
+        System.out.println("Nouvel état du tableau de paths de TileS1 après rotation: " + tileS1.getDisplayPaths());
+
+        // Réessayer de déplacer le pion vers le bas (on y arrive cette fois-ci)
+        if (pawn.move(Direction.DOWN, board)) {
             System.out.println("Pion déplacé vers le bas.");
         } else {
             System.out.println("Déplacement vers le bas impossible.");
         }
 
-        // Afficher l'état du plateau après le mouvement
-        board.printBoard(pawns);
+        // Afficher l'état final du plateau
+        System.out.println("État final du plateau:");
+        board.printBoard(pawnlist);
 
-        // Déplacer une ligne vers le haut
-        board.moveRow(1, 0); // 0 pour haut
+        // Afficher "FIN MAIN TEST"
+        System.out.println("FIN MAIN TEST");
 
-        // Afficher l'état du plateau après le mouvement de ligne
-        board.printBoard(pawns);
-
-        // Déplacer une colonne vers la droite
-        board.moveColumn(1, 1); // 1 pour droite
-
-        // Afficher l'état du plateau après le mouvement de colonne
-        board.printBoard(pawns);
-
-        // Ajouter la tuile supplémentaire à la ligne 1
-        Tiles extraTile = tileFactory.createTile("Straight", 0, null);
-        board.addExtraTile(extraTile, 1, 0); // 0 pour ligne
-
-        // Afficher l'état du plateau après l'ajout de la tuile supplémentaire
-        board.printBoard(pawns);
-
-        // Ajouter la tuile supplémentaire à la colonne 1
-        board.addExtraTile(extraTile, 1, 1); // 1 pour colonne
-
-        // Afficher l'état du plateau après l'ajout de la tuile supplémentaire
-        board.printBoard(pawns);
     }
 }
