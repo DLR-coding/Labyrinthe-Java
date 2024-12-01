@@ -1,0 +1,122 @@
+@startuml
+
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+
+package src {
+    class Game {
+
+    }
+    class Main {
+       + Main():
+       + main(String[])
+    }
+    package model {
+        class Board {
+                  + <<Create>> Board():
+                  + printBoard(List<Pawn>)
+                  + setTile(Position, Tile)
+                  + moveRow(direction:Direction, numRow:Integer)
+                  + getTile(Position): Tile
+                  + moveColumn(direction:Direction, numColumn:Integer)
+                }
+                enum Direction << enumeration >> {
+                  UP
+                  RIGHT
+                  DOWN
+                  LEFT
+                }
+
+                enum Orientation << enumeration >> {
+                  NORTH
+                  EAST
+                  SOUTH
+                  WEST
+                }
+                class Goal {
+                  + <<Create>>Goal(numgoal:Integer):
+                  - _numgoal: Integer
+                  + getNumGoal(): Integer
+                  + setNumGoal(numgoal:Integer)
+                }
+
+                class Pawn {
+                  + <<Create>>Pawn(Position):
+                  + getPosition(): Position
+                  + set_position(Position)
+                  + isMoveValid(Direction, Board): boolean
+                  + move(Direction, Board): boolean
+                }
+                class Position {
+                  + <<Create>>Position(x:Integer, y:Integer):
+                  - x: Integer
+                  - y: Integer
+                  + setY(newY:Integer)
+                  + getX(): Integer
+                  + setX(newX:Integer)
+                  + getY(): Integer
+                }
+                class TileFactory {
+                  + <<Create>>TileFactory():
+                  + createTileStraight(orientation:Orientation,goal:Goal): TilesStraight
+                  + createTileT(orientation:Orientation,goal:Goal): TilesT
+                  + createTileAngle(orientation:Orientation,goal:Goal): TilesAngle
+                }
+                class Tile <<abstract>> {
+                  + <<Create>>Tile(type:String, orientation:Orientation, goal:Goal, paths:Direction[1..4]):
+                  -_orientation: Orientation
+                  -_type: String
+                  + set_type(String)
+                  + getPaths(): Direction[1..4]
+                  + getDisplayPaths(): String
+                  + isPathOpen(Direction): boolean
+                  + set_orientation(Integer)
+                  + set_goal(Goal)
+                  + rotate()
+                  + setPaths(Direction[1..4])
+                  + get_orientation(): Integer
+                  + get_type(): String
+                  + get_goal(): Goal
+                }
+                class TilesAngle extends Tile {
+                  + <<Create>>TilesAngle(newOrientation:Orientation, goal : Goal):
+                }
+                class TilesStraight extends Tile{
+                  + <<Create>>TilesStraight(newOrientation:Orientation, goal : Goal):
+                }
+                class TilesT extends Tile{
+                  + <<Create>>TilesT(newOrientation:Orientation,goal:Goal):
+                }
+    }
+
+    package view {
+
+    }
+
+    package controller {
+
+    }
+
+
+
+}
+
+
+Board          "1" *-[#595959,plain]-> "_extraTile\n1" Tile          
+Board          "1" *-[#595959,plain]-> "_tiles[7][7]\n" Tile
+Main            -[#595959,dashed]->  Board          : "«create»"
+Main            -[#595959,dashed]->  Pawn           : "«create»"
+Main            -[#595959,dashed]->  Position       : "«create»"
+Main            -[#595959,dashed]->  TileFactory    : "«create»"
+Pawn            -[#595959,dashed]->  Position       : "«create»"
+Pawn           "1" *-[#595959,plain]-> "_position\n1" Position       
+TileFactory     -[#595959,dashed]->  TilesAngle    : "«create»"
+TileFactory     -[#595959,dashed]->  TilesStraight : "«create»"
+TileFactory     -[#595959,dashed]->  TilesT        : "«create»"
+Tile          "1" *-[#595959,plain]-> "_goal\n1" Goal
+Orientation    "1" *-[#595959,plain]-> "_orientation\n1" Tile
+Pawn    "1" -[#595959,dashed]-> "uses\n1" Direction
+Tile    "1" -[#595959,dashed]-> "_paths\n1..4" Direction
+@enduml

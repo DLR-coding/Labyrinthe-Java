@@ -1,0 +1,99 @@
+@startuml
+
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+
+class Board {
+  - _extraTile: Tiles
+  - _tilesList: ArrayList<ArrayList<Tiles>>
+  + <<Create>> Board():
+  + addExtraTile(extraTile: Tiles)
+  + moveRow(direction: Integer, extraTile: Tiles)
+  + moveColumn(direction: Integer, extraTile: Tiles)
+  + getTile(position: Position): Tiles
+  + setTile(position: Position, tile: Tiles)
+}
+
+class Game {
+  + <<Create>>Game():
+  - _board: Board
+  - _pawns: List<Pawn>
+  + startGame()
+  + endGame()
+}
+
+class Goal {
+  - _numGoal: Integer
+  + <<Create>> Goal(numGoal: Integer)
+  + getNumGoal(): Integer
+  + setNumGoal(numGoal: Integer)
+}
+
+class Pawn {
+  - _position: Position
+  + <<Create>> Pawn(position: Position)
+  + move(direction: Integer, board: Board): Boolean
+  + isMoveValid(move: Move, board: Board): Boolean
+  + getPosition(): Position
+  + setPosition(position: Position)
+}
+
+class Position {
+  - _x: Integer
+  - _y: Integer
+  + <<Create>> Position(x: Integer, y: Integer)
+  + setX(x: Integer)
+  + getX(): Integer
+  + getY(): Integer
+  + setY(y: Integer)
+}
+
+class Tiles <<abstract>> {
+  - _type: String
+  - _orientation: Integer
+  - _goal: Goal
+  - _paths: ArrayList<Boolean>
+  + <<Create>> Tiles(type: String, orientation: Integer, goal: Goal, paths: ArrayList<Boolean>)
+  + rotate()
+  + isPathOpen(direction: Integer): Boolean
+
+  + setPaths(paths: ArrayList<Boolean>)
+  + getPaths(): ArrayList<Boolean>
+  + setOrientation(orientation: Integer)
+  + getGoal(): Goal
+  + setGoal(goal: Goal)
+  + getOrientation(): Integer
+  + setType(type: String)
+  + getType(): String
+}
+
+class Tiles_Angle extends Tiles {
+  + <<Create>> Tiles_Angle(orientation: Integer, goal: Goal):
+}
+
+class Tiles_Straight extends Tiles {
+  + <<Create>> Tiles_Straight(orientation: Integer, goal: Goal):
+}
+
+class Tiles_T extends Tiles {
+  + <<Create>> Tiles_T(orientation: Integer, goal: Goal):
+}
+
+class ConcreteTileFactory {
+    + createTile_Straight(int orientation, Goal goal) : Tiles_Straight
+    + createAngle(int orientation, Goal goal) : Tiles_Angle
+    + createT(int orientation, Goal goal) : Tiles_T
+}
+
+
+
+
+Board "1" *---> "49\n-" Tiles : composé de \t\t >
+Game "1" *---> "1" Board : composé de \t\t >
+Game "1" *---> "4" Pawn : composé de \t\t >
+Pawn "1" *---> "1" Position : composé de \t\t >
+Tiles "1" *---> "1" Goal : composé de \t\t >
+ConcreteTileFactory "1" *---> "1" Tiles : crée \t\t >
+@enduml
