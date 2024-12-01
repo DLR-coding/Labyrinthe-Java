@@ -5,95 +5,165 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 skinparam style strictuml
 
-class Board {
-  - _extraTile: Tiles
-  - _tilesList: ArrayList<ArrayList<Tiles>>
-  + <<Create>> Board():
-  + addExtraTile(extraTile: Tiles)
-  + moveRow(direction: Integer, extraTile: Tiles)
-  + moveColumn(direction: Integer, extraTile: Tiles)
-  + getTile(position: Position): Tiles
-  + setTile(position: Position, tile: Tiles)
+package src {
+    class Main {
+      + Main():
+      + {static} main(String[])
+    }
+
+    package view {
+        class UI {
+            + <<Create>> UI()
+            + displayWinner(player: Player)
+            + displayGame(game: Game)
+        }
+    }
+
+    package controller {
+        class GameController {
+            + <<Create>> GameController(game:Game)
+            + movePlayer(player: Player, direction: Direction)
+            + pushTile(direction: Direction , numRowORCol:Integer)
+        }
+    }
+
+    class GameClient {
+      - _board: Board
+      - _players: List<Player>
+      - _allGoals: List<Goal>
+      + <<Create>> Game()
+      + initGame(nbPlayer: Integer)
+      + startGame()
+      + endGame()
+      + printGame()
+    }
+
+    class FacadeGameSetup {
+          + <<Create>> GameSetup()
+          + setupGame(nbPlayers: Integer): Game
+          + createBoard()
+          + createPlayers(nbPlayers: Integer)
+          + generateGoals(): List<Goal>
+
+          + distributeGoals()
+          + checkGoalReached(Player player)
+        }
+
+
+
+    package model {
+        class Board {
+              + <<Create>>Board():
+              + initBoard()
+              + setTile(Position, Tile)
+              + getTile(Position): Tile
+            }
+            enum Direction << enumeration >> {
+              + UP:
+              + LEFT:
+              + RIGHT:
+              + DOWN:
+            }
+            class Goal {
+              + <<Create>> Goal(numGoal:Integer):
+              - _numgoal:  Integer
+              + setNumGoal(Integer)
+              + getNumGoal():  Integer
+            }
+
+            enum Orientation << enumeration >> {
+              + NORTH:
+              + EAST:
+              + SOUTH:
+              + WEST:
+            }
+            class Player {
+              + Player(position:Position):
+              + getPosition(): Position
+              + set_position(Position)
+              + move(Direction): boolean
+              + getOppositeDirection(Direction): Direction
+            }
+
+
+            class Position {
+              + <<Create>>Position(row:Integer, col:Integer):
+              - row:  Integer
+              - col:  Integer
+
+              + getrow():  Integer
+              + setrow(numRow:Integer)
+              + getcol():  Integer
+              + setcol(numCol:Integer)
+            }
+            class Tile <<abstract>> {
+              + Tile(type:String, fixed:Boolean, orientation:Orientation, goal:Goal, paths:List<Direction>):
+              - _orientation: Orientation
+              - _goal: Goal
+              - _paths: List<Direction>
+              - _type: String
+              - rotatePaths(List<Direction>, Orientation): List<Direction>
+              + isPathOpen(Direction): boolean
+              + setType(String)
+              + getPaths(): List<Direction>
+              + setOrientation(Orientation)
+              + getType(): String
+              - getRotatedDirection(Direction, Orientation): Direction
+              + DisplayPaths(): String
+              + getOrientation(): Orientation
+              + setGoal(Goal)
+              - getNextOrientation(Orientation): Orientation
+              + rotateClockWise()
+              + rotateCounterClockWise()
+              + getGoal(): Goal
+              + setPaths(List<Direction>)
+            }
+            class TileAngle extends Tile {
+              + TileAngle(fixed:Boolean, orientation:Orientation, numGoal:Goal):
+            }
+            class TileStraight extends Tile{
+              + TileStraight(orientationOrientation, numGoal:Goal):
+            }
+            class TileT extends Tile{
+              + TileT(orientation:Orientation, numGoal:Goal):
+            }
+            class TileFactory {
+              + TileFactory():
+              + createTileStraight(fixed:Boolean, orientation:Orientation, numGoal:Goal): TileStraight
+              + createTileAngle(fixed:Boolean, orientation:Orientation, numGoal:Goal): TileAngle
+              + createTileT(fixed:Boolean, orientation:Orientation, numGoalGoal): TileT
+            }
+        }
+
+
 }
 
-class Game {
-  + <<Create>>Game():
-  - _board: Board
-  - _pawns: List<Pawn>
-  + startGame()
-  + endGame()
-}
 
-class Goal {
-  - _numGoal: Integer
-  + <<Create>> Goal(numGoal: Integer)
-  + getNumGoal(): Integer
-  + setNumGoal(numGoal: Integer)
-}
+Board         -[#595959,dashed]->  Position     : "«create»"
+Board        "1" *-[#595959,plain]-> "_extraTile\n1" Tile
+Board        "1" *-[#595959,plain]-> "_tiles: Tile\n49" Tile
+Board         -[#595959,dashed]->  TileFactory  : "«create»"
 
-class Pawn {
-  - _position: Position
-  + <<Create>> Pawn(position: Position)
-  + move(direction: Integer, board: Board): Boolean
-  + isMoveValid(move: Move, board: Board): Boolean
-  + getPosition(): Position
-  + setPosition(position: Position)
-}
+Main          -[#595959,dashed]->  Board        : "«create»"
+Main          -[#595959,dashed]->  Player         : "«create»"
+Main          -[#595959,dashed]->  Position     : "«create»"
+Main          -[#595959,dashed]->  TileFactory  : "«create»"
+Main          -[#595959,dashed]->  GameClient         : "«uses»"
+Player         "1" *-[#595959,plain]-> "_position\n1" Position
+Player          -[#595959,dashed]->  Position     : "«create»"
+Player       "1" *-[#595959,plain]-> "_goalsList\n*" Goal
+Player       "1" *-[#595959,plain]-> "_currentGoal\n1" Goal
+Tile         "1" *-[#595959,plain]-> "paths\n0..4" Direction
+Tile         "1" *-[#595959,plain]-> "goal\n1" Goal
+Tile         "1" *-[#595959,plain]-> "orientation\n1" Orientation
+TileFactory   -[#595959,dashed]->  TileAngle    : "«uses»"
+TileFactory   -[#595959,dashed]->  TileAngle    : "«uses»"
+TileFactory   -[#595959,dashed]->  TileStraight : "«uses»"
+TileFactory   -[#595959,dashed]->  TileT        : "«uses»"
+TileFactory   -[#595959,dashed]->  Tile        : "«uses»"
 
-class Position {
-  - _x: Integer
-  - _y: Integer
-  + <<Create>> Position(x: Integer, y: Integer)
-  + setX(x: Integer)
-  + getX(): Integer
-  + getY(): Integer
-  + setY(y: Integer)
-}
+GameClient    -[#595959,dashed]->  FacadeGameSetup        : "«uses»"
+GameClient    -[#595959,dashed]->  GameController        : "«uses»"
+GameClient    -[#595959,dashed]->  UI        : "«uses»"
 
-class Tiles <<abstract>> {
-  - _type: String
-  - _orientation: Integer
-  - _goal: Goal
-  - _paths: ArrayList<Boolean>
-  + <<Create>> Tiles(type: String, orientation: Integer, goal: Goal, paths: ArrayList<Boolean>)
-  + rotate()
-  + isPathOpen(direction: Integer): Boolean
-
-  + setPaths(paths: ArrayList<Boolean>)
-  + getPaths(): ArrayList<Boolean>
-  + setOrientation(orientation: Integer)
-  + getGoal(): Goal
-  + setGoal(goal: Goal)
-  + getOrientation(): Integer
-  + setType(type: String)
-  + getType(): String
-}
-
-class Tiles_Angle extends Tiles {
-  + <<Create>> Tiles_Angle(orientation: Integer, goal: Goal):
-}
-
-class Tiles_Straight extends Tiles {
-  + <<Create>> Tiles_Straight(orientation: Integer, goal: Goal):
-}
-
-class Tiles_T extends Tiles {
-  + <<Create>> Tiles_T(orientation: Integer, goal: Goal):
-}
-
-class ConcreteTileFactory {
-    + createTile_Straight(int orientation, Goal goal) : Tiles_Straight
-    + createAngle(int orientation, Goal goal) : Tiles_Angle
-    + createT(int orientation, Goal goal) : Tiles_T
-}
-
-
-
-
-Board "1" *---> "49\n-" Tiles : composé de \t\t >
-Game "1" *---> "1" Board : composé de \t\t >
-Game "1" *---> "4" Pawn : composé de \t\t >
-Pawn "1" *---> "1" Position : composé de \t\t >
-Tiles "1" *---> "1" Goal : composé de \t\t >
-ConcreteTileFactory "1" *---> "1" Tiles : crée \t\t >
 @enduml
