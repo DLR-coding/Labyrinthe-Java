@@ -46,8 +46,8 @@ package src {
           + generateGoals(): List<Goal>
 
           + distributeGoals()
+          + checkGoalReached(Player player)
         }
-
 
 
 
