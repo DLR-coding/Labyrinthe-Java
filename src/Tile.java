@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tile {
-    protected String type;
-    protected Orientation orientation; // NORTH, EAST, SOUTH, WEST
-    protected Goal goal;
-    protected List<Direction> paths; // Liste des directions ouvertes
+    public String type;
+    public Orientation orientation; // NORTH, EAST, SOUTH, WEST
+    public Goal goal;
+    public List<Direction> paths; // Liste des directions ouvertes
 
     public Tile(String type, Orientation orientation, Goal goal, List<Direction> paths) {
         this.type = type;
