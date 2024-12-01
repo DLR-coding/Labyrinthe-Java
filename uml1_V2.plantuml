@@ -1,0 +1,102 @@
+@startuml
+
+
+class Board {
+  + Board(): 
+  - _extraTile: Tile
+  - _tiles: ArrayList<ArrayList<Tile>>
+  + setTile(Position, Tile): void
+  - initializeBoard(): void
+  + getTile(Position): Tile
+  + printBoard(List<Pawn>): void
+}
+class Game {
+  + Game(): 
+  - pawns: List<Pawn>
+  - board: Board
+  + getBoard(): Board
+  + setPawns(List<Pawn>): void
+  + startGame(): void
+  + endGame(): void
+  + setBoard(Board): void
+  + getPawns(): List<Pawn>
+}
+class Goal {
+  + Goal(): 
+}
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+class Main_Test1 {
+  + Main_Test1(): 
+  + main(String[]): void
+}
+class Map {
+  + Map(): 
+}
+class Move {
+  + Move(): 
+  + moveRow(Board, int, int): void
+  + moveColumn(Board, int, int): void
+  + movePawn(Pawn, int, Board): boolean
+}
+class Pawn {
+  + Pawn(Position): 
+  - _position: Position
+  + set_position(Position): void
+  + move(Direction, Board): boolean
+  - getOppositeDirection(Direction): Direction
+  + getPosition(): Position
+}
+class Position {
+  + Position(int, int): 
+  - col: int
+  - row: int
+  + getCol(): int
+  + getRow(): int
+  + setRow(int): void
+  + setCol(int): void
+}
+class Tile <<abstract>> {
+  + Tile(String, int, Goal, ArrayList<Boolean>):
+  # paths: ArrayList<Boolean>
+  # goal: Goal
+  # orientation: int
+  # type: String
+  + setGoal(Goal): void
+  + setOrientation(int): void
+  + getPaths(): ArrayList<Boolean>
+  + isPathOpen(int): boolean
+  + getGoal(): Goal
+  + rotate(): void
+  + getType(): String
+  + getOrientation(): int
+  + setType(String): void
+  + setPaths(ArrayList<Boolean>): void
+}
+class TileAngle extends Tile {
+  + <<Create>> TileAngle(int, Goal):
+}
+class TileStraight extends Tile {
+  + <<Create>> TileStraight(int, Goal):
+}
+class TileT extends Tile {
+  + Tiles_T(int, Goal): 
+}
+
+Board           -[#595959,dashed]->  Position       : "«create»"
+Main            -[#595959,dashed]->  Board          : "«create»"
+Main_Test1      -[#595959,dashed]->  Board          : "«create»"
+Main_Test1      -[#595959,dashed]->  Move           : "«create»"
+Main_Test1      -[#595959,dashed]->  Pawn           : "«create»"
+Main_Test1      -[#595959,dashed]->  Position       : "«create»"
+Main_Test1      -[#595959,dashed]->  Tiles_Straight : "«create»"
+Move            -[#595959,dashed]->  Position       : "«create»"
+Pawn            -[#595959,dashed]->  Position       : "«create»"
+Pawn           "1" *-[#595959,plain]-> "_position\n1" Position       
+Tiles          "1" *-[#595959,plain]-> "goal\n1" Goal           
+Tiles_Angle     -[#000082,plain]-^  Tiles          
+Tiles_Straight  -[#000082,plain]-^  Tiles          
+Tiles_T         -[#000082,plain]-^  Tiles          
+@enduml
