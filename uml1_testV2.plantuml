@@ -16,7 +16,6 @@ package src {
     package model {
         class Board {
                   + <<Create>> Board():
-                  - _tiles: Tile[][]
                   + printBoard(List<Pawn>)
                   + setTile(Position, Tile)
                   + moveRow(direction:Direction, numRow:Integer)
@@ -106,6 +105,7 @@ package src {
 
 
 Board          "1" *-[#595959,plain]-> "_extraTile\n1" Tile          
+Board          "1" *-[#595959,plain]-> "_tiles[7][7]\n" Tile
 Main            -[#595959,dashed]->  Board          : "«create»"
 Main            -[#595959,dashed]->  Pawn           : "«create»"
 Main            -[#595959,dashed]->  Position       : "«create»"
