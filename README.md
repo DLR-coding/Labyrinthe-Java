@@ -36,7 +36,7 @@ Côté matériel, le jeu de société comporte **50 tuiles** de 3 sortes :
 - 12 sections droites toutes déplaçables,
 - 18 en forme de "T" dont 12 sont fixes et 6 sont déplaçables.
 
-Il y a également **24 objectifs**.
+Il _column a également **24 objectifs**.
 
 Nous nous limiterons à un nombre fixe de **4 joueurs**.
 

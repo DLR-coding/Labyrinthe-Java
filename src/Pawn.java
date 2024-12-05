@@ -6,23 +6,23 @@ public class Pawn {
     }
 
     public boolean move(Direction direction, Board board) {
-        Position newPosition = new Position(this._position.getX(), this._position.getY());
+        Position newPosition = new Position(this._position.getRow(), this._position.getColumn());
         switch (direction) {
             case UP:
-                newPosition.setY(newPosition.getY() - 1);
+                newPosition.setRow(newPosition.getRow() - 1);
                 break;
             case RIGHT:
-                newPosition.setX(newPosition.getX() + 1);
+                newPosition.setColumn(newPosition.getColumn() + 1);
                 break;
             case DOWN:
-                newPosition.setY(newPosition.getY() + 1);
+                newPosition.setRow(newPosition.getRow() + 1);
                 break;
             case LEFT:
-                newPosition.setX(newPosition.getX() - 1);
+                newPosition.setColumn(newPosition.getColumn() - 1);
                 break;
         }
 
-        if (newPosition.getX() < 0 || newPosition.getX() >= 7 || newPosition.getY() < 0 || newPosition.getY() >= 7) {
+        if (newPosition.getRow() < 0 || newPosition.getRow() >= 7 || newPosition.getColumn() < 0 || newPosition.getColumn() >= 7) {
             return false; // Hors des limites du plateau
         }
 

@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int _numPlayer;
-    private String _name;
-    private Pawn _pawn;
-    private List<Goal> _goalsList;
+    public int _numPlayer;
+    public String _name;
+    public Pawn _pawn;
+    public List<Goal> _goalsList;
 
     public Player(int numPlayer, Pawn pawn, List<Goal> goals) {
         this._numPlayer = numPlayer;

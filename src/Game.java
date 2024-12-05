@@ -14,20 +14,29 @@ public class Game {
 
     public void startGame() {
         // Initialiser le plateau et les joueurs
+        System.out.println("Chargement...");
         initializeBoard();
         initializePlayers();
+
+        // Lancer la partie
+        System.out.println("La partie commence !");
+        while (true) {
+            // Tour de jeu
+
+        }
+
     }
 
     public void endGame() {
         // Terminer la partie
     }
 
-    /private void initializeBoard() {
+    private void initializeBoard() {
         // Initialiser le plateau avec des tuiles et des objectifs
         TileFactory tileFactory = new TileFactory();
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                Tile tile = tileFactory.createTileStraight(0, 0);
+                Tile tile = tileFactory.createTileStraight(Orientation.NORTH, 0);
                 board.setTile(new Position(i, j), tile);
             }
         }
@@ -62,27 +71,5 @@ public class Game {
         }
     }
 
-    public Board getBoard() {
-        return board;
-    }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
-    public List<Goal> getAllGoals() {
-        return allGoals;
-    }
-
-    public void setAllGoals(List<Goal> allGoals) {
-        this.allGoals = allGoals;
-    }
 } */

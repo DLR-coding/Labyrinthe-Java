@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tile {
+    // ! enlever le paramètre de rotation de tuile lorsqu'on le construit pcq on rotatera manuelllement
     public String type;
     public Orientation orientation; // NORTH, EAST, SOUTH, WEST
     public Goal goal;

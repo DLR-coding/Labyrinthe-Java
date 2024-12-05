@@ -1,15 +1,13 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
 
-        // Créer la factory de tuiles
+        // Init Board
+        Board board = new Board();
         TileFactory tileFactory = new TileFactory();
 
-        // Créer et placer les tuiles
         Tile tileS1 = tileFactory.createTileStraight(Orientation.NORTH, null); // Horizontal
         Tile tileS2 = tileFactory.createTileStraight(Orientation.EAST, null); // Vertical
 
@@ -21,6 +19,7 @@ public class Main {
         Pawn pawn = new Pawn(initialPosition);
         List<Pawn> pawnlist = new ArrayList<>();
         pawnlist.add(pawn);
+
         // Afficher l'état initial du plateau
         System.out.println("État initial du plateau:");
         board.printBoard(pawnlist);
@@ -36,6 +35,7 @@ public class Main {
 
         // Afficher l'état actuel du tableau de paths de TileS1
         System.out.println("État actuel du tableau de paths de TileS1: " + tileS1.getDisplayPaths());
+
 
         // Rotater TileS1 et afficher le nouvel état de son tableau de paths
         tileS1.rotate();
