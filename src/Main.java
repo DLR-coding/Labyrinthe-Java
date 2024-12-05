@@ -8,17 +8,17 @@ public class Main {
         Board board = new Board();
         TileFactory tileFactory = new TileFactory();
 
-        Tile tileS1 = tileFactory.createTileStraight(Orientation.NORTH, null); // Horizontal
-        Tile tileS2 = tileFactory.createTileStraight(Orientation.EAST, null); // Vertical
+        Tile tileS1 = tileFactory.createTileStraight(RotationFromOriginal.DEFAULT, null); // Horizontal
+        Tile tileS2 = tileFactory.createTileStraight(RotationFromOriginal.CW90, null); // Vertical
 
         board.setTile(new Position(0, 0), tileS1);
         board.setTile(new Position(1, 0), tileS2);
 
         // Créer et placer le pion
         Position initialPosition = new Position(0, 0);
-        Pawn pawn = new Pawn(initialPosition);
-        List<Pawn> pawnlist = new ArrayList<>();
-        pawnlist.add(pawn);
+        Player player = new Player(initialPosition);
+        List<Player> pawnlist = new ArrayList<>();
+        pawnlist.add(player);
 
         // Afficher l'état initial du plateau
         System.out.println("État initial du plateau:");
@@ -27,7 +27,7 @@ public class Main {
 
 
         // Essayer de déplacer le pion vers le bas
-        if (pawn.move(Direction.DOWN, board)) {
+        if (player.move(Direction.DOWN, board)) {
             System.out.print("Pion déplacé vers le bas.");
         } else {
             System.out.println("Déplacement vers le bas impossible , il faut rotate.");
@@ -42,7 +42,7 @@ public class Main {
         System.out.println("Nouvel état du tableau de paths de TileS1 après rotation: " + tileS1.displayPaths());
 
         // Réessayer de déplacer le pion vers le bas (on y arrive cette fois-ci)
-        if (pawn.move(Direction.DOWN, board)) {
+        if (player.move(Direction.DOWN, board)) {
             System.out.println("Pion déplacé vers le bas.");
         } else {
             System.out.println("Déplacement vers le bas impossible.");

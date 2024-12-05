@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
-/*
+
 public class Game {
-    private Board board;
-    private List<Player> players;
-    private List<Goal> allGoals;
+    public Board board;
+    public List<Player> players;
+    public List<Goal> allGoals;
+    public boolean _isfinished;
+
 
     public Game() {
         this.board = new Board();
         this.players = new ArrayList<>();
         this.allGoals = new ArrayList<>();
+        this._isfinished = true;
     }
 
     public void startGame() {
@@ -36,7 +39,7 @@ public class Game {
         TileFactory tileFactory = new TileFactory();
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                Tile tile = tileFactory.createTileStraight(Orientation.NORTH, 0);
+                Tile tile = tileFactory.createTileStraight(RotationFromOriginal.DEFAULT, 0);
                 board.setTile(new Position(i, j), tile);
             }
         }
@@ -47,13 +50,13 @@ public class Game {
     private void initializePlayers() {
         // Initialiser les joueurs avec des objectifs
         for (int i = 0; i < 4; i++) {
-            Pawn pawn = new Pawn(new Position(i, 0));
+            Player player = new Player(new Position(i, 0));
             List<Goal> goals = new ArrayList<>();
             for (int j = 0; j < 6; j++) {
                 goals.add(allGoals.get(i * 6 + j));
             }
-            Player player = new Player(i + 1, pawn, goals);
-            players.add(player);
+            Player2 player2 = new Player2(i + 1, player, goals);
+            player2s.add(player2);
         }
     }
 
@@ -70,6 +73,4 @@ public class Game {
             }
         }
     }
-
-
-} */
+}

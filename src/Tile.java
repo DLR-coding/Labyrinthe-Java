@@ -4,44 +4,44 @@ import java.util.List;
 public abstract class Tile {
     // ! enlever le paramètre de rotation de tuile lorsqu'on le construit pcq on rotatera manuelllement
     public String type;
-    public Orientation orientation; // NORTH, EAST, SOUTH, WEST
+    public RotationFromOriginal rotationFromOriginal; // DEFAULT, CW90, CW180, CW270
     public Goal goal;
     public List<Direction> paths; // Liste des directions ouvertes
 
-    public Tile(String type, Orientation orientation, Goal goal, List<Direction> paths) {
+    public Tile(String type, RotationFromOriginal rotationFromOriginal, Goal goal, List<Direction> paths) {
         this.type = type;
-        this.orientation = orientation;
+        this.rotationFromOriginal = rotationFromOriginal;
         this.goal = goal;
-        this.paths = rotatePaths(paths, orientation);
+        this.paths = rotatePaths(paths, rotationFromOriginal);
     }
 
-    private List<Direction> rotatePaths(List<Direction> paths, Orientation orientation) {
+    private List<Direction> rotatePaths(List<Direction> paths, RotationFromOriginal rotationFromOriginal) {
         List<Direction> rotatedPaths = new ArrayList<>();
         for (Direction direction : paths) {
-            rotatedPaths.add(getRotatedDirection(direction, orientation));
+            rotatedPaths.add(getRotatedDirection(direction, rotationFromOriginal));
         }
         return rotatedPaths;
     }
 
-    private Direction getRotatedDirection(Direction direction, Orientation orientation) {
-        switch (orientation) {
-            case NORTH:
+    private Direction getRotatedDirection(Direction direction, RotationFromOriginal rotationFromOriginal) {
+        switch (rotationFromOriginal) {
+            case DEFAULT:
                 return direction;
-            case EAST:
+            case CW90:
                 return switch (direction) {
                     case UP -> Direction.RIGHT;
                     case RIGHT -> Direction.DOWN;
                     case DOWN -> Direction.LEFT;
                     case LEFT -> Direction.UP;
                 };
-            case SOUTH:
+            case CW180:
                 return switch (direction) {
                     case UP -> Direction.DOWN;
                     case RIGHT -> Direction.LEFT;
                     case DOWN -> Direction.UP;
                     case LEFT -> Direction.RIGHT;
                 };
-            case WEST:
+            case CW270:
                 return switch (direction) {
                     case UP -> Direction.LEFT;
                     case RIGHT -> Direction.UP;
@@ -49,27 +49,27 @@ public abstract class Tile {
                     case LEFT -> Direction.DOWN;
                 };
             default:
-                throw new IllegalArgumentException("Invalid orientation: " + orientation);
+                throw new IllegalArgumentException("Invalid rotationFromOriginal: " + rotationFromOriginal);
         }
     }
 
     public void rotate() {
-        orientation = getNextOrientation(orientation);
-        paths = rotatePaths(paths, orientation);
+        rotationFromOriginal = getNextOrientation(rotationFromOriginal);
+        paths = rotatePaths(paths, rotationFromOriginal);
     }
 
-    private Orientation getNextOrientation(Orientation orientation) {
-        switch (orientation) {
-            case NORTH:
-                return Orientation.EAST;
-            case EAST:
-                return Orientation.SOUTH;
-            case SOUTH:
-                return Orientation.WEST;
-            case WEST:
-                return Orientation.NORTH;
+    private RotationFromOriginal getNextOrientation(RotationFromOriginal rotationFromOriginal) {
+        switch (rotationFromOriginal) {
+            case DEFAULT:
+                return RotationFromOriginal.CW90;
+            case CW90:
+                return RotationFromOriginal.CW180;
+            case CW180:
+                return RotationFromOriginal.CW270;
+            case CW270:
+                return RotationFromOriginal.DEFAULT;
             default:
-                throw new IllegalArgumentException("Invalid orientation: " + orientation);
+                throw new IllegalArgumentException("Invalid rotationFromOriginal: " + rotationFromOriginal);
         }
     }
 
@@ -121,13 +121,13 @@ public abstract class Tile {
         this.type = type;
     }
 
-    public Orientation getOrientation() {
-        return orientation;
+    public RotationFromOriginal getOrientation() {
+        return rotationFromOriginal;
     }
 
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-        this.paths = rotatePaths(this.paths, orientation);
+    public void setOrientation(RotationFromOriginal rotationFromOriginal) {
+        this.rotationFromOriginal = rotationFromOriginal;
+        this.paths = rotatePaths(this.paths, rotationFromOriginal);
     }
 
     public List<Direction> getPaths() {
@@ -135,6 +135,6 @@ public abstract class Tile {
     }
 
     public void setPaths(List<Direction> paths) {
-        this.paths = rotatePaths(paths, this.orientation);
+        this.paths = rotatePaths(paths, this.rotationFromOriginal);
     }
 }

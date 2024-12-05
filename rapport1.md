@@ -4,7 +4,7 @@ Rapport 1
 ### Justification des classes
 - **TileFactory** : Plusieurs classes concrètes (TileAngle, TileStraight, TileT) héritent de la même classe abstraite (Tile). Grâce à la Factory , une classe externe ne dépendra que de la classe abstraite et de la fabrique, mais d’aucune classe concrète.
 - **Enumeration Directon au lieu d'utiliser des Integer** : Permet d'avoir un code plus lisible et clair 
-- **Player = Pawn** : pour des raisons de simplification , un joueur est considéré comme un pion.
+- **Player2 = Player** : pour des raisons de simplification , un joueur est considéré comme un pion.
 - 
 ### Classes qui changeront fort probablement 
 

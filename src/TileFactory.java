@@ -1,15 +1,27 @@
+
 public class TileFactory {
 
 
-    public Tile createTileStraight(Orientation orientation, Goal goal) {
-        return new TileStraight(orientation, goal);
+    public Tile createTileStraight(RotationFromOriginal rotationFromOriginal, Goal goal) {
+        return new TileStraight(rotationFromOriginal, goal);
     }
 
-    public Tile createTileT(Orientation orientation, Goal goal) {
-        return new TileT(orientation, goal);
+    public Tile createTileT(RotationFromOriginal rotationFromOriginal, Goal goal) {
+        return new TileT(rotationFromOriginal, goal);
     }
 
-    public Tile createTileAngle(Orientation orientation, Goal goal) {
-        return new TileAngle(orientation, goal);
+    public Tile createTileAngle(RotationFromOriginal rotationFromOriginal, Goal goal) {
+        return new TileAngle(rotationFromOriginal, goal);
+    }
+
+    public Tile createRandomTile(Goal goal)
+    {
+        int type = random(0~2);
+        if(type = 0 ) {
+            return createTileStraight(random orientation , goal);
+        }
+        if ()
+        // ....
+
     }
 }

@@ -38,7 +38,7 @@ public class Board {
      * en fonction de la direction de déplacement donnée.
      *
      * @param direction la direction de déplacement (UP, DOWN, LEFT, RIGHT)
-     * @param number le numéro de la ligne ou colonne où ajouter la tuile
+     * @param number    le numéro de la ligne ou colonne où ajouter la tuile
      */
     public void addExtraTile(Direction direction, int number) { //jsp quel autre nom donner
         // Détermine la ligne et la colonne où ajouter la tuile en fonction de la direction
@@ -95,31 +95,31 @@ public class Board {
             _tiles[row] = newRowTiles;
         }
     }
-    public void printBoard(List<Pawn> pawns) {
-    System.out.println("Plateau de jeu:");
-    for (int i = 0; i < 7; i++) {
-        for (int j = 0; j < 7; j++) {
-            Tile tile = _tiles[i][j];
-            if (tile == null) {
-                System.out.print("[   ,   ,   ,   , ] ");
-            } else {
-                System.out.print(tile.displayPaths());
+
+    public void printBoard(List<Player> players) {
+        System.out.println("Plateau de jeu:");
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                Tile tile = _tiles[i][j];
+                if (tile == null) {
+                    System.out.print("[   ,   ,   ,   , ] ");
+                } else {
+                    System.out.print(tile.displayPaths());
+                }
             }
+            System.out.println();
         }
-        System.out.println();
-    }
 
-    System.out.println("Positions des joueurs:");
-    for (Pawn player : pawns) {
-        System.out.println(pawns.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ")");
-    }
-    if (this._extraTile != null) {
-        System.out.println("_extratile:" + this._extraTile.displayPaths());
-    }
-    else {
-        System.out.println("_extratile: null");
-    }
+        System.out.println("Positions des joueurs:");
+        for (Player player : players) {
+            System.out.println(players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ")");
+        }
+        if (this._extraTile != null) {
+            System.out.println("_extratile:" + this._extraTile.displayPaths());
+        } else {
+            System.out.println("_extratile: null");
+        }
 
-}
+    }
 
 }
