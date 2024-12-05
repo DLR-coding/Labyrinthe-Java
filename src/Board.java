@@ -96,22 +96,30 @@ public class Board {
         }
     }
     public void printBoard(List<Pawn> pawns) {
-        System.out.println("Plateau de jeu:");
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                Tile tile = _tiles[i][j];
-                if (tile == null) {
-                    System.out.print("[   ] ");
-                } else {
-                    System.out.print("[" + tile.getDisplayPaths() + (tile.getGoal() != null ? tile.getGoal().toString() : "") + "] ");
-                }
+    System.out.println("Plateau de jeu:");
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
+            Tile tile = _tiles[i][j];
+            if (tile == null) {
+                System.out.print("[   ,   ,   ,   , ] ");
+            } else {
+                System.out.print(tile.displayPaths());
             }
-            System.out.println();
         }
-
-        System.out.println("Positions des joueurs:");
-        for (Pawn player : pawns) {
-            System.out.println(pawns.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ")");
-        }
+        System.out.println();
     }
+
+    System.out.println("Positions des joueurs:");
+    for (Pawn player : pawns) {
+        System.out.println(pawns.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ")");
+    }
+    if (this._extraTile != null) {
+        System.out.println("_extratile:" + this._extraTile.displayPaths());
+    }
+    else {
+        System.out.println("_extratile: null");
+    }
+
+}
+
 }

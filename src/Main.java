@@ -34,12 +34,12 @@ public class Main {
         }
 
         // Afficher l'état actuel du tableau de paths de TileS1
-        System.out.println("État actuel du tableau de paths de TileS1: " + tileS1.getDisplayPaths());
+        System.out.println("État actuel du tableau de paths de TileS1: " + tileS1.displayPaths());
 
 
         // Rotater TileS1 et afficher le nouvel état de son tableau de paths
         tileS1.rotate();
-        System.out.println("Nouvel état du tableau de paths de TileS1 après rotation: " + tileS1.getDisplayPaths());
+        System.out.println("Nouvel état du tableau de paths de TileS1 après rotation: " + tileS1.displayPaths());
 
         // Réessayer de déplacer le pion vers le bas (on y arrive cette fois-ci)
         if (pawn.move(Direction.DOWN, board)) {

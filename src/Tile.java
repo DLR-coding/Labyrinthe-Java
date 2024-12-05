@@ -77,15 +77,30 @@ public abstract class Tile {
         return paths.contains(direction);
     }
 
-    public String getDisplayPaths() {
+    public String displayPaths() {
         StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
         for (Direction direction : Direction.values()) {
-            if (paths.contains(direction)) {
-                sb.append(direction.toString().charAt(0));
+            if (isPathOpen(direction)) {
+                switch (direction) {
+                    case UP:
+                        sb.append("↑ , ");
+                        break;
+                    case RIGHT:
+                        sb.append("→ , ");
+                        break;
+                    case DOWN:
+                        sb.append("↓ , ");
+                        break;
+                    case LEFT:
+                        sb.append("← , ");
+                        break;
+                }
             } else {
-                sb.append(" ");
+                sb.append("x , ");
             }
         }
+        sb.append("] ");
         return sb.toString();
     }
 
