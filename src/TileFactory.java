@@ -14,6 +14,7 @@ public class TileFactory {
         return new TileAngle(rotationFromOriginal, goal);
     }
 
+    /*
     public Tile createRandomTile(Goal goal)
     {
         int type = random(0~2);
@@ -24,4 +25,6 @@ public class TileFactory {
         // ....
 
     }
+
+     */
 }

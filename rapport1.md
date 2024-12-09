@@ -8,7 +8,7 @@ Rapport 1
 - 
 ### Classes qui changeront fort probablement 
 
-- Tout ce qui est lié à la classe GameClient. Jusqu'à maintenant , les Tests n'ont été fait que dans des Main de test qui s'occupaient de tester la génération du jeu ainsi que les dépacements des joueurs.
+- Tout ce qui est lié à la classe GameClient. Jusqu'à maintenant , les Tests n'ont été fait que dans des Main_test1 de test qui s'occupaient de tester la génération du jeu ainsi que les dépacements des joueurs.
 - Les mouvements de joueurs seront peut-être dans une classe Controller.
 
 ### Ne pas prendre en compte 

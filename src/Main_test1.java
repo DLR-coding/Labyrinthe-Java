@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Main_test1 {
     public static void main(String[] args) {
 
         // Init Board
@@ -16,7 +16,7 @@ public class Main {
 
         // Créer et placer le pion
         Position initialPosition = new Position(0, 0);
-        Player player = new Player(initialPosition);
+        Player player = new Player(initialPosition , 1);
         List<Player> pawnlist = new ArrayList<>();
         pawnlist.add(player);
 

@@ -7,8 +7,11 @@ public class Player {
     public String _name;
     public Stack<Goal> _goalsList;
 
-    public Player(Position position) {
+    public Player(Position position , int numPlayer) {
         this._position = position;
+        this._goalsList = new Stack<>();
+        this._numPlayer = numPlayer;
+        this._name = "Player " + numPlayer;
     }
 
     public boolean move(Direction direction, Board board) {
@@ -29,6 +32,7 @@ public class Player {
         }
 
         if (newPosition.getRow() < 0 || newPosition.getRow() >= 7 || newPosition.getColumn() < 0 || newPosition.getColumn() >= 7) {
+            System.out.println("Hors des limites du plateau");
             return false; // Hors des limites du plateau
         }
 
@@ -41,6 +45,11 @@ public class Player {
 
         if (currentTile.isPathOpen(direction) && newTile.isPathOpen(getOppositeDirection(direction))) {
             this._position = newPosition;
+            if (newTile.goal._numgoal == this._goalsList.peek()._numgoal) {
+                Goal removedGoal= this._goalsList.pop();
+                System.out.println("Player " + this._numPlayer + " has reached goal : " + removedGoal.getNumGoal() + " !");
+            }
+                // ! signal observers for updateGoals()
             return true;
         }
 

@@ -1,5 +1,5 @@
 public class Goal {
-    private int _numgoal;
+    public int _numgoal;
 
     public Goal(int numgoal) {
         this._numgoal = numgoal;
