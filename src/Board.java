@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class Board {
-    private Tile[][] _tiles;
-    private Tile _extraTile;
+    public Tile[][] _tiles;
+    public Tile _extraTile;
 
     public Board() {
         /*

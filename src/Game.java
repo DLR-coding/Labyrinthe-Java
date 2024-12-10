@@ -24,19 +24,7 @@ public class Game {
         // Lancer la partie
         System.out.println("La partie commence !");
 
-        if (this._players.get(0).move(Direction.RIGHT, _board)) {
-            System.out.print("Player déplacé vers RIGHT.");
-            if (this._players.get(0).move(Direction.DOWN, _board)) {
-                System.out.println("Player déplacé vers DOWN.");
-            }
-            else {
-                System.out.println("Déplacement vers DOWN impossible");
-            }
-        }
-        else {
-            System.out.println("Déplacement vers RIGHT impossible , je peux pas continuer");
 
-        }
 
         this._board.printBoard(this._players);
 
