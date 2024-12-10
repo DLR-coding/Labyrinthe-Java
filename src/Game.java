@@ -3,14 +3,12 @@ import java.util.List;
 
 public class Game {
     public Board _board;
-    public List<Player> _players;
     public List<Goal> _allGoals;
     public boolean _finished;
 
 
     public Game() {
         this._board = new Board();
-        this._players = new ArrayList<>();
         this._allGoals = new ArrayList<>();
         this._finished = false;
     }
@@ -20,13 +18,13 @@ public class Game {
         System.out.println("Chargement...");
         initializeBoard();
         initializePlayers();
-        this._board.printBoard(this._players);
+        this._board.printBoard();
         // Lancer la partie
         System.out.println("La partie commence !");
 
 
 
-        this._board.printBoard(this._players);
+        this._board.printBoard();
 
 
         /*
@@ -116,7 +114,7 @@ public class Game {
         // Initialiser les joueurs avec des objectifs
         Player player1 = new Player(new Position(0, 0) , 1);
         player1._goalsList.add(new Goal(11));
-        _players.add(player1);
+        this._board._players.add(player1);
     }
 
     private void addGoalsToBoard() {

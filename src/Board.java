@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
     public Tile[][] _tiles;
     public Tile _extraTile;
+    public List<Player> _players;
+
 
     public Board() {
         /*
@@ -16,6 +19,7 @@ public class Board {
                5 [ [5][0] , [5][1] , [5][2] , [5][3] , [5][4] , [5][5] , [5][6] ] ,
                6 [ [6][0] , [6][1] , [6][2] , [6][3] , [6][4] , [6][5] , [6][6] ]
             ]
+
          */
         this._tiles = new Tile[7][7];
         for (int i = 0; i < 7; i++) {
@@ -23,6 +27,9 @@ public class Board {
                 this._tiles[i][j] = null; // Initialiser avec null
             }
         }
+
+        this._extraTile = null;
+        this._players = new ArrayList<>();
     }
 
     public Tile getTile(Position position) {
@@ -40,63 +47,121 @@ public class Board {
      * @param direction la direction de déplacement (UP, DOWN, LEFT, RIGHT)
      * @param number    le numéro de la ligne ou colonne où ajouter la tuile
      */
-    public void addExtraTile(Direction direction, int number) { //jsp quel autre nom donner
-        // Détermine la ligne et la colonne où ajouter la tuile en fonction de la direction
-        int row = -1, col = -1;
+    public void addExtraTile(Direction direction, int number) {
         switch (direction) {
             case UP:
-                // Ajouter la tuile à la dernière ligne
-                row = 6;
-                col = number;
+                moveUp(number);
                 break;
             case DOWN:
-                // Ajouter la tuile à la première ligne
-                row = 0;
-                col = number;
+                moveDown(number);
                 break;
             case LEFT:
-                // Ajouter la tuile à dernière colonne
-                row = number;
-                col = 6;
+                moveLeft(number);
                 break;
             case RIGHT:
-                // Ajouter la tuile à la première colonne
-                row = number;
-                col = 6;
+                moveRight(number);
                 break;
-        }
-
-        // Vérifie si la ligne et la colonne sont pas hors Board
-        if (row >= 0 && row < _tiles.length && col >= 0 && col < _tiles[0].length) {
-            // Récupère les tuiles de la ligne où ajouter la tuile
-            Tile[] rowTiles = _tiles[row];
-
-            // Crée un nouveau tableau de tuiles pour la ligne avec la tuile supplémentaire
-            Tile[] newRowTiles = new Tile[rowTiles.length + 1];
-
-            // Ajoute la tuile supplémentaire à la fin de la ligne
-            if (col == rowTiles.length) {
-                System.arraycopy(rowTiles, 0, newRowTiles, 0, rowTiles.length);
-                newRowTiles[col] = _extraTile;
-            }
-            // Ajoute la tuile supplémentaire au début de la ligne
-            else if (col == 0) {
-                newRowTiles[0] = _extraTile;
-                System.arraycopy(rowTiles, 0, newRowTiles, 1, rowTiles.length);
-            }
-            // Ajoute la tuile supplémentaire à une position intermédiaire de la ligne
-            else {
-                System.arraycopy(rowTiles, 0, newRowTiles, 0, col);
-                newRowTiles[col] = _extraTile;
-                System.arraycopy(rowTiles, col, newRowTiles, col + 1, rowTiles.length - col);
-            }
-
-            // Met à jour la ligne de tuiles avec la nouvelle ligne
-            _tiles[row] = newRowTiles;
         }
     }
 
-    public void printBoard(List<Player> players) {
+    private void moveUp(int numCol) {
+        // Récupérer la tuile à la première ligne de la numCol spécifiée
+        Tile newExtraTile = _tiles[0][numCol];
+        // La retirer du tableau de tuiles
+        _tiles[0][numCol] = null;
+
+        // Déplacer les tuiles vers le haut
+        for (int i = 0; i < _tiles.length - 1; i++) {
+            _tiles[i][numCol] = _tiles[i + 1][numCol];
+
+            // Vérifier si un joueur est présent sur la tuile déplacée
+            for (Player player : this._players) {
+                if (player.getPosition().getRow() == i + 1 && player.getPosition().getColumn() == numCol) {
+                    player.setPosition(new Position(i, numCol));
+                }
+            }
+        }
+
+        // Ajouter la tuile extra à la dernière ligne
+        _tiles[_tiles.length - 1][numCol] = _extraTile;
+        // Update _extraTile
+        _extraTile = newExtraTile;
+    }
+
+    private void moveDown(int numCol) {
+        // Récupérer la tuile à la dernière ligne de la numCol spécifiée
+        Tile newExtraTile = _tiles[_tiles.length - 1][numCol];
+        // La retirer du tableau de tuiles
+        _tiles[_tiles.length - 1][numCol] = null;
+
+        // Déplacer les tuiles vers le bas
+        for (int i = _tiles.length - 1; i > 0; i--) {
+            _tiles[i][numCol] = _tiles[i - 1][numCol];
+
+            // Vérifier si un joueur est présent sur la tuile déplacée
+            for (Player player : this._players) {
+                if (player.getPosition().getRow() == i - 1 && player.getPosition().getColumn() == numCol) {
+                    player.setPosition(new Position(i, numCol));
+                }
+            }
+        }
+
+        // Ajouter la tuile extra à la première ligne
+        _tiles[0][numCol] = _extraTile;
+        // Update _extraTile
+        _extraTile = newExtraTile;
+    }
+
+    private void moveLeft(int numRow) {
+        // Récupérer la tuile à la première colonne de la numRow spécifiée
+        Tile newExtraTile = _tiles[numRow][0];
+        // La retirer du tableau de tuiles
+        _tiles[numRow][0] = null;
+
+        // Déplacer les tuiles vers la gauche
+        for (int i = 0; i < _tiles[numRow].length - 1; i++) {
+            _tiles[numRow][i] = _tiles[numRow][i + 1];
+
+            // Vérifier si un joueur est présent sur la tuile déplacée
+            for (Player player : this._players) {
+                if (player.getPosition().getRow() == numRow && player.getPosition().getColumn() == i + 1) {
+                    player.setPosition(new Position(numRow, i));
+                }
+            }
+        }
+
+        // Ajouter la tuile extra à la dernière colonne
+        _tiles[numRow][_tiles[numRow].length - 1] = _extraTile;
+        // Update _extraTile
+        _extraTile = newExtraTile;
+    }
+
+    private void moveRight(int numRow) {
+        // Récupérer la tuile à la dernière colonne de la numRow spécifiée
+        Tile newExtraTile = _tiles[numRow][_tiles[numRow].length - 1];
+        // La retirer du tableau de tuiles
+        _tiles[numRow][_tiles[numRow].length - 1] = null;
+
+        // Déplacer les tuiles vers la droite
+        for (int i = _tiles[numRow].length - 1; i > 0; i--) {
+            _tiles[numRow][i] = _tiles[numRow][i - 1];
+
+            // Vérifier si un joueur est présent sur la tuile déplacée
+            for (Player player : this._players) {
+                if (player.getPosition().getRow() == numRow && player.getPosition().getColumn() == i - 1) {
+                    player.setPosition(new Position(numRow, i));
+                }
+            }
+        }
+
+        // Ajouter la tuile extra à la première colonne
+        _tiles[numRow][0] = _extraTile;
+        // Update _extraTile
+        _extraTile = newExtraTile;
+    }
+
+    public void printBoard() {
+        // plateau
         System.out.println("Plateau de jeu:");
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
@@ -109,16 +174,17 @@ public class Board {
             }
             System.out.println();
         }
-
+        //  joueur
         System.out.println("Positions des joueurs:");
-        for (Player player : players) {
-            System.out.print(players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ") / " );
+        for (Player player : this._players) {
+            System.out.print("Player " + this._players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ") / " );
             if (!player._goalsList.isEmpty()) {
                 System.out.println("Current Goals : " + player._goalsList.peek()._numgoal);
             } else {
                 System.out.println("Current Goals :  ! le joueur a fini tt ses goals !");
             }
         }
+        // extratile
         if (this._extraTile != null) {
             System.out.println("_extratile:" + this._extraTile.displayPaths());
         } else {

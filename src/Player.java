@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Stack;
 
 public class Player {
@@ -44,8 +43,10 @@ public class Player {
         }
 
         if (currentTile.isPathOpen(direction) && newTile.isPathOpen(getOppositeDirection(direction))) {
+
             this._position = newPosition;
-            if (newTile.goal._numgoal == this._goalsList.peek()._numgoal) {
+
+            if ( newTile.goal != null && newTile.goal._numgoal == this._goalsList.peek()._numgoal) {
                 Goal removedGoal= this._goalsList.pop();
                 System.out.println("Player " + this._numPlayer + " has reached goal : " + removedGoal.getNumGoal() + " !");
             }
@@ -75,7 +76,7 @@ public class Player {
         return _position;
     }
 
-    public void set_position(Position position) {
+    public void setPosition(Position position) {
         this._position = position;
     }
 }

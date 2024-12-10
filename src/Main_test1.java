@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Main_test1 {
     public static void main(String[] args) {
-
+        /*
         // Init Board
         Board board = new Board();
         TileFactory tileFactory = new TileFactory();
@@ -54,6 +54,8 @@ public class Main_test1 {
 
         // Afficher "FIN MAIN TEST"
         System.out.println("FIN MAIN TEST");
-
+         */
     }
+
+
 }
