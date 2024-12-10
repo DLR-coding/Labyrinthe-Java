@@ -40,7 +40,7 @@ public class Game {
 
         this._board.printBoard(this._players);
 
-        //
+
         /*
         while (true) {
             // Tour de jeu
