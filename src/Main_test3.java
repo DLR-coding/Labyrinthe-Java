@@ -1,6 +1,7 @@
 public class Main_test3 {
 
     public static void main(String[] args) {
+
         Board board = new Board();
 
         TileFactory tileFactory = new TileFactory();
@@ -36,7 +37,7 @@ public class Main_test3 {
         System.out.println("État actuel du tableau de paths de TileS1: " + tileS1.displayPaths());
 
 
-        // Rotater TileS1 et afficher le nsouvel état de son tableau de paths
+        // Rotater TileS1 et afficher le nouvel état de son tableau de paths
         tileS1.rotate();
         System.out.println("Nouvel état du tableau de paths de TileS1 après rotation: " + tileS1.displayPaths());
 
