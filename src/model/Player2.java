@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,16 +7,16 @@ public class Player2 {
     public int _numPlayer;
     public String _name;
     public Player _player;
-    public List<Goal> _goalsList;
+    public List<Goals> _goalsList;
 
-    public Player2(int numPlayer, Player player, List<Goal> goals) {
+    public Player2(int numPlayer, Player player, List<badGoal> goals) {
         this._numPlayer = numPlayer;
-        this._name = "Player " + numPlayer;
+        this._name = "model.Player " + numPlayer;
         this._player = player;
         this._goalsList = new ArrayList<>(goals);
     }
 
-    public Player2(int numPlayer, String name, Player player, List<Goal> goals) {
+    public Player2(int numPlayer, String name, Player player, List<badGoal> goals) {
         this._numPlayer = numPlayer;
         this._name = name;
         this._player = player;
@@ -45,15 +47,15 @@ public class Player2 {
         this._player = _player;
     }
 
-    public List<Goal> get_goalsList() {
+    public List<badGoal> get_goalsList() {
         return _goalsList;
     }
 
-    public void set_goalsList(List<Goal> _goalsList) {
+    public void set_goalsList(List<badGoal> _goalsList) {
         this._goalsList = _goalsList;
     }
 
-    public void achieveGoal(Goal goal) {
+    public void achieveGoal(Goals goal) {
         _goalsList.remove(goal);
     }
 

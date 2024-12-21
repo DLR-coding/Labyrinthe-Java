@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Board {
 
     public Board() {
         /*
-        _board : Tile[7][7]
+        _board : model.Tile[7][7]
             [
                0 [ [0][0] , [0][1] , [0][2] , [0][3] , [0][4] , [0][5] , [0][6] ] ,
                1 [ [1][0] , [1][1] , [1][2] , [1][3] , [1][4] , [1][5] , [1][6] ] ,
@@ -177,9 +179,9 @@ public class Board {
         //  joueur
         System.out.println("Positions des joueurs:");
         for (Player player : this._players) {
-            System.out.print("Player " + this._players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ") / " );
+            System.out.print("model.Player " + this._players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ") / " );
             if (!player._goalsList.isEmpty()) {
-                System.out.println("Current Goals : " + player._goalsList.peek()._numgoal);
+                System.out.println("Current Goals : " + player._goalsList.peek().toString());
             } else {
                 System.out.println("Current Goals :  ! le joueur a fini tt ses goals !");
             }

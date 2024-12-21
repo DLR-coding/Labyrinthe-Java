@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,10 +7,10 @@ public abstract class Tile {
     // ! enlever le paramètre de rotation de tuile lorsqu'on le construit pcq on rotatera manuelllement
     public String type;
     public RotationFromOriginal rotationFromOriginal; // DEFAULT, CW90, CW180, CW270
-    public Goal goal;
+    public Goals goal;
     public List<Direction> paths; // Liste des directions ouvertes
 
-    public Tile(String type, RotationFromOriginal rotationFromOriginal, Goal goal, List<Direction> paths) {
+    public Tile(String type, RotationFromOriginal rotationFromOriginal, Goals goal, List<Direction> paths) {
         this.type = type;
         this.rotationFromOriginal = rotationFromOriginal;
         this.goal = goal;
@@ -104,11 +106,21 @@ public abstract class Tile {
         return sb.toString();
     }
 
-    public Goal getGoal() {
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "type='" + type + '\'' +
+                ", rotationFromOriginal=" + rotationFromOriginal +
+                ", goal=" + goal +
+                ", paths=" + displayPaths() +
+                '}';
+    }
+
+    public Goals getGoal() {
         return goal;
     }
 
-    public void setGoal(Goal goal) {
+    public void setGoal(Goals goal) {
         this.goal = goal;
     }
 

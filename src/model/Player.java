@@ -1,10 +1,13 @@
+package model;
+
 import java.util.Stack;
 
 public class Player {
-    private Position _position;
+    public Position _position;
+    public Position _initialPosition;
     public int _numPlayer;
     public String _name;
-    public Stack<Goal> _goalsList;
+    public Stack<Goals> _goalsList;
 
     public Player(Position position , int numPlayer) {
         this._position = position;
@@ -12,6 +15,8 @@ public class Player {
         this._numPlayer = numPlayer;
         this._name = "Player " + numPlayer;
     }
+
+
 
     public boolean move(Direction direction, Board board) {
         Position newPosition = new Position(this._position.getRow(), this._position.getColumn());
@@ -46,9 +51,9 @@ public class Player {
 
             this._position = newPosition;
 
-            if ( newTile.goal != null && newTile.goal._numgoal == this._goalsList.peek()._numgoal) {
-                Goal removedGoal= this._goalsList.pop();
-                System.out.println("Player " + this._numPlayer + " has reached goal : " + removedGoal.getNumGoal() + " !");
+            if ( newTile.goal != null && newTile.goal == this._goalsList.peek()) {
+                Goals removedGoal= this._goalsList.pop();
+                System.out.println("model.Player " + this._numPlayer + " has reached goal : " + removedGoal.toString() + " !");
             }
                 // ! signal observers for updateGoals()
             return true;
@@ -78,5 +83,9 @@ public class Player {
 
     public void setPosition(Position position) {
         this._position = position;
+    }
+
+    public Goals getCurrentGoal() {
+        return this._goalsList.peek();
     }
 }

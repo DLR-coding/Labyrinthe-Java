@@ -4,6 +4,7 @@ hide empty members
 top to bottom direction
 skinparam linetype ortho
 
+
 class Board {
   + Board():
   + _tiles: Tile[][]

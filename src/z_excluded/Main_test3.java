@@ -1,3 +1,7 @@
+package z_excluded;
+
+import model.*;
+
 public class Main_test3 {
 
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+package model;
+
 public class Position {
     private int _row;
     private int _column;

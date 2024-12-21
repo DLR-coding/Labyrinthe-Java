@@ -1,7 +1,9 @@
-public class Goal {
+package model;
+
+public class badGoal {
     public int _numgoal;
 
-    public Goal(int numgoal) {
+    public badGoal(int numgoal) {
         this._numgoal = numgoal;
     }
 
