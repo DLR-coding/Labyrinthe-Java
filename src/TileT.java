@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class TileT extends Tile {
-    public TileT(Orientation orientation, Goal goal) {
-        super("T", orientation, goal, Arrays.asList(Direction.UP, Direction.RIGHT, Direction.DOWN));
+    public TileT(RotationFromOriginal rotationFromOriginal, Goal goal) {
+        super("T", rotationFromOriginal, goal, Arrays.asList(Direction.UP, Direction.RIGHT, Direction.DOWN));
     }
 }
