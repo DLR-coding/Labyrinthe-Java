@@ -1,14 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
+import java.io.IOException;
 
 public class GameUI extends JFrame {
-    private JPanel game;
+    private final JPanel game;
     private JPanel board;
     private JLabel[][] tiles;
 
-    private JLabel extraTile;
+    private JLabel _extraTile;
 
     public GameUI(){
         this.setSize(1200, 1200);
@@ -25,33 +25,21 @@ public class GameUI extends JFrame {
         tiles = new JLabel[7][7];
         for (int i = 0; i < 7; i++){
             for (int j = 0; j < 7; j++){
-                Random rand = new Random();
-                int tiletype = rand.nextInt(3);
-                ImageIcon icon = new ImageIcon();
-                if(tiletype == 0){
-                    icon = new ImageIcon("src/img/tiles/tile_angle.jpeg");
-                }
-                else if(tiletype == 1){
-                    icon = new ImageIcon("src/img/tiles/tile_straight.jpeg");
-                }
-                else{
-                    icon = new ImageIcon("src/img/tiles/tile_T.jpeg");
-                }
-                icon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
                 tiles[i][j] = new JLabel();
                 tiles[i][j].setSize(80, 80);
-                tiles[i][j].setIcon(icon);
                 board.add(tiles[i][j]);
             }
         }
+        this._extraTile = new JLabel();
+        _extraTile.setSize(80,80);
 
 
         JPanel buttonsTop = new JPanel(new GridLayout(1,3));
         buttonsTop.add(new JButton("topBtn0"));
         buttonsTop.add(new JButton("topBtn1"));
         buttonsTop.add(new JButton("topBtn2"));
-        c.weightx= 0.1;
-        c.weighty= 0.1;
+        c.weightx= 1;
+        c.weighty= 1;
         c.gridy = 0;
         game.add(buttonsTop, c);
 
@@ -98,101 +86,125 @@ public class GameUI extends JFrame {
         setImage(tile, ImageHelper.rotateCounterClockwise((BufferedImage)tile.getIcon()));
     }
 
-    private void moveRow(int row, Orientation direction){
-        if(direction == Orientation.EAST){
+    private void moveRow(int row, Direction direction) throws Exception {
+        if(direction == Direction.RIGHT){
             ImageIcon tempIcon = (ImageIcon) this.tiles[row][6].getIcon();
             for (int i =6; i>=0; i--){
                 if(i==0) {
-                    tiles[row][i].setIcon(this.extraTile.getIcon());
+                    tiles[row][i].setIcon(this._extraTile.getIcon());
                 }
                 else{
                     tiles[row][i].setIcon(tiles[row][i-1].getIcon());
                 }
-                this.extraTile.setIcon(tempIcon);
+                this._extraTile.setIcon(tempIcon);
             }
         }
-        else if(direction == Orientation.WEST){
+        else if(direction == Direction.LEFT){
             ImageIcon tempIcon = (ImageIcon) this.tiles[row][0].getIcon();
             for(int i=0; i<7; i++){
                 if(i==6) {
-                    tiles[row][i].setIcon(this.extraTile.getIcon());
+                    tiles[row][i].setIcon(this._extraTile.getIcon());
                 }
                 else{
                     tiles[row][i].setIcon(tiles[row][i+1].getIcon());
                 }
-                this.extraTile.setIcon(tempIcon);
+                this._extraTile.setIcon(tempIcon);
             }
         }
         else{
-
+            throw new Exception("Failure moving row. invalid direction");
         }
 
     }
 
-    private void moveColumn(int column, Orientation direction){
-        if(direction == Orientation.SOUTH){
+    private void moveColumn(int column, Direction direction) throws Exception {
+        if(direction == Direction.DOWN){
             ImageIcon tempIcon = (ImageIcon) this.tiles[6][column].getIcon();
             for (int i =6; i>=0; i--){
                 if(i==0) {
-                    tiles[i][column].setIcon(this.extraTile.getIcon());
+                    tiles[i][column].setIcon(this._extraTile.getIcon());
                 }
                 else{
                     tiles[i][column].setIcon(tiles[i-1][column].getIcon());
                 }
-                this.extraTile.setIcon(tempIcon);
+                this._extraTile.setIcon(tempIcon);
             }
         }
-        else if(direction == Orientation.NORTH){
+        else if(direction == Direction.UP){
             ImageIcon tempIcon = (ImageIcon) this.tiles[0][column].getIcon();
             for(int i=0; i<7; i++){
                 if(i==6) {
-                    tiles[i][column].setIcon(this.extraTile.getIcon());
+                    tiles[i][column].setIcon(this._extraTile.getIcon());
                 }
                 else{
                     tiles[i][column].setIcon(tiles[i+1][column].getIcon());
                 }
-                this.extraTile.setIcon(tempIcon);
+                this._extraTile.setIcon(tempIcon);
             }
         }
         else{
-
+            throw new Exception("Failure moving column. invalid direction");
         }
     }
 
-    public void replicateBoard(){
-
+    public void replicateBoard(Tile[][] board, Tile extratile) throws IOException {
+        int i = 0;
+        int j = 0;
+        for(Tile[] row : board){
+            for(Tile tile : row){
+                tileToLabel(tile, tiles[i][j]);
+                j++;
+            }
+            j=0;
+            i++;
+        }
+        tileToLabel(extratile, this._extraTile);
     }
 
-    public void tileToLabel(Tile tile, JLabel label){
+    public void tileToLabel(Tile tile, JLabel label) throws IOException {
         switch(tile.type){
             case "T":
                 if(tile.goal != null){
-                    label.setIcon(merge());
+                    label.setIcon((Icon) ImageHelper.merge("src/img/tiles/tile_T.jpeg", "src/img/goals/" + tile.goal._imgPath).getScaledInstance(100, 100, Image.SCALE_SMOOTH));
                 }
                 else{
-
+                    label.setIcon(new ImageIcon("src/img/tiles/tile_T.jpeg"));
                 }
+                break;
             case "Straight":
-                if(){
-
+                if(tile.goal != null){
+                    label.setIcon((Icon) ImageHelper.merge("src/img/tiles/tile_Straight.jpeg", "src/img/goals/" + tile.goal._imgPath).getScaledInstance(100, 100, Image.SCALE_SMOOTH));
                 }
                 else{
-
+                    label.setIcon(new ImageIcon("src/img/tiles/tile_Straight.jpeg"));
                 }
+                break;
             case "Angle":
-                if(){
-
+                if(tile.goal != null){
+                    label.setIcon((Icon) ImageHelper.merge("src/img/tiles/tile_Angle.jpeg", "src/img/goals/" + tile.goal._imgPath).getScaledInstance(100, 100, Image.SCALE_SMOOTH));
                 }
                 else{
-
+                    label.setIcon(new ImageIcon("src/img/tiles/tile_Angle.jpeg"));
                 }
+                break;
+        }
+        switch (tile.rotationFromOriginal){
+            case CW90:
+                 rotateTileClockwise(label);
+                 break;
+            case CW180:
+                rotateTileClockwise(label);
+                rotateTileClockwise(label);
+                break;
+            case CW270:
+                rotateTileClockwise(label);
+                rotateTileClockwise(label);
+                rotateTileClockwise(label);
+                break;
+            default:
+                break;
         }
     }
-
-    public static void main(String[] args) {
-        GameUI gui = new GameUI();
-    }
-
 
 
 
