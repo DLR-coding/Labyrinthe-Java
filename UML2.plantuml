@@ -1,0 +1,256 @@
+@startuml
+
+
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+top to bottom direction
+
+package src {
+package model {
+    class Board {
+      + <<Create>>Board():
+      + _players: List<Player>
+      + _extraTile: Tile
+      + _tiles: Tile[][]
+      - moveDown(int)
+      + printBoard()
+      - moveRight(int)
+      - moveUp(int)
+      + setTile(Position, Tile)
+      + getTile(Position): Tile
+      - moveLeft(int)
+      + addExtraTile(Direction, int)
+    }
+    enum Direction << enumeration >> {
+      + RIGHT:
+      + LEFT:
+      + DOWN:
+      + UP:
+
+    }
+    class Game {
+      + Game():
+      + _isFinished: boolean
+      + _allGoals: List<Goals>
+      + _board: Board
+      + startGame()
+      - initializePlayers()
+      + initializeBoard()
+      + endGame()
+    }
+
+
+    enum Goals << enumeration >> {
+      + Goals():
+      + G2:
+      + G8:
+      + G12:
+      + G21:
+      + G7:
+      + G11:
+      + G14:
+      + G20:
+      + G22:
+      + G1:
+      + G18:
+      + G24:
+      + G13:
+      + G9:
+      + G10:
+      + G23:
+      + G17:
+      + G15:
+      + G3:
+      + G5:
+      + G6:
+      + G19:
+      + G4:
+      + G16:
+      + valueOf(String): Goals
+      + values(): Goals[]
+    }
+
+
+    class Player {
+      + Player(Position, int):
+      + _initialPosition: Position
+      + _name: String
+      + _position: Position
+      + _goalsList: Stack<Goals>
+      + _numPlayer: int
+      + move(Direction, Board): boolean
+      - getOppositeDirection(Direction): Direction
+      + getPosition(): Position
+      + setPosition(Position)
+      + getCurrentGoal(): Goals
+    }
+    class Position {
+      + Position(int, int):
+      - _row: int
+      - _column: int
+      + getColumn(): int
+      + setColumn(int)
+      + setRow(int)
+      + getRow(): int
+    }
+    enum RotationFromOriginal << enumeration >> {
+      + RotationFromOriginal():
+      + CW90:
+      + CW270:
+      + DEFAULT:
+      + CW180:
+      + values(): RotationFromOriginal[]
+      + valueOf(String): RotationFromOriginal
+    }
+    class Tile {
+      + Tile(String, RotationFromOriginal, Goals, List<Direction>):
+      + goal: Goals
+      + rotationFromOriginal: RotationFromOriginal
+      + type: String
+      + paths: List<Direction>
+      + getType(): String
+      + isPathOpen(Direction): boolean
+      + getPaths(): List<Direction>
+      + getOrientation(): RotationFromOriginal
+      + setType(String)
+      + toString(): String
+      + setPaths(List<Direction>)
+      + displayPaths(): String
+      + setOrientation(RotationFromOriginal)
+      + getGoal(): Goals
+      - rotatePaths(List<Direction>, RotationFromOriginal): List<Direction>
+      + setGoal(Goals)
+      - getRotatedDirection(Direction, RotationFromOriginal): Direction
+      + rotate()
+      - getNextOrientation(RotationFromOriginal): RotationFromOriginal
+    }
+    class TileAngle {
+      + TileAngle(RotationFromOriginal, Goals):
+    }
+    class TileFactory {
+      + TileFactory():
+      + createTileT(RotationFromOriginal, Goals): Tile
+      + createRandomTile(Goals): Tile
+      + createTileStraight(RotationFromOriginal, Goals): Tile
+      + createTileAngle(RotationFromOriginal, Goals): Tile
+    }
+    class TileStraight {
+      + TileStraight(RotationFromOriginal, Goals):
+    }
+    class TileT {
+      + TileT(RotationFromOriginal, Goals):
+    }
+    class badGoal {
+      + badGoal(int):
+      + _imgPath: String
+      + _numgoal: int
+      + getNumGoal(): int
+      + setNumGoal(int)
+    }
+    class badPlayer {
+      + badPlayer(int, Player, List<badGoal>):
+      + badPlayer(int, String, Player, List<badGoal>):
+      + _player: Player
+      + _numPlayer: int
+      + _name: String
+      + _goalsList: List<Goals>
+      + set_pawn(Player)
+      + getName(): String
+      + get_pawn(): Player
+      + get_goalsList(): List<badGoal>
+      + set_goalsList(List<badGoal>)
+      + hasAchievedAllGoals(): boolean
+      + getNumPlayer(): int
+      + setName(String)
+      + achieveGoal(Goals)
+      + setNumPlayer(int)
+    }
+
+
+}
+
+package view {
+         class GameUI {
+               + GameUI():
+               - _tiles: JLabel[][]
+               - _extraTile: JLabel
+               - _game: JPanel
+               - _board: JPanel
+               - moveColumn(int, Direction)
+               + replicateBoard(Tile[][], Tile)
+               - moveRow(int, Direction)
+               - setImage(JLabel, BufferedImage)
+               - tileToLabel(Tile, JLabel)
+               - rotateTileClockwise(JLabel)
+             }
+
+         class ImageHelper {
+                + ImageHelper():
+                + merge(String, String[]): BufferedImage
+                + rotateCounterClockwise(BufferedImage): BufferedImage
+                + rotate(BufferedImage, double): BufferedImage
+                + rotateClockwise(BufferedImage): BufferedImage
+              }
+     }
+     package controller {
+          class GameController {
+            + GameController(Game):
+            - _game: Game
+          }
+     }
+
+class Main_test1 {
+           + Main_test1():
+           + main(String[])
+}
+ class Main_test2 {
+   + Main_test2():
+   + main(String[])
+ }
+ class Main_test3 {
+   + Main_test3():
+   + main(String[])
+ }
+ class Main_test4 {
+   + Main_test4():
+   + main(String[])
+ }
+}
+
+Board                "1" *-[#595959,plain]-> "_players\n*" Player
+Board                 -[#595959,dashed]->  Position             : "«create»"
+Board                "1" *-[#595959,plain]-> "_tiles\n*" Tile
+Board                 -[#595959,dashed]->  Tile                 : "«create»"
+Game                 "1" *-[#595959,plain]-> "_board\n1" Board
+Game                  -[#595959,dashed]->  Board                : "«create»"
+Game                 "1" *-[#595959,plain]-> "_allGoals\n*" Goals
+Game                  -[#595959,dashed]->  Player               : "«create»"
+Game                  -[#595959,dashed]->  Position             : "«create»"
+Game                  -[#595959,dashed]->  TileFactory          : "«create»"
+GameController       "1" *-[#595959,plain]-> "_game\n1" Game
+Main_test1            -[#595959,dashed]->  Board                : "«create»"
+Main_test1            -[#595959,dashed]->  Player               : "«create»"
+Main_test1            -[#595959,dashed]->  Position             : "«create»"
+Main_test1            -[#595959,dashed]->  TileFactory          : "«create»"
+Main_test2            -[#595959,dashed]->  Game                 : "«create»"
+Main_test3            -[#595959,dashed]->  Board                : "«create»"
+Main_test3            -[#595959,dashed]->  Player               : "«create»"
+Main_test3            -[#595959,dashed]->  Position             : "«create»"
+Main_test3            -[#595959,dashed]->  TileFactory          : "«create»"
+Main_test4            -[#595959,dashed]->  GameUI               : "«create»"
+Player                -[#595959,dashed]->  Position             : "«create»"
+Player               "1" *-[#595959,plain]-> "_position\n1" Position
+Tile                 "1" *-[#595959,plain]-> "paths\n*" Direction
+Tile                 "1" *-[#595959,plain]-> "goal\n1" Goals
+Tile                 "1" *-[#595959,plain]-> "rotationFromOriginal\n1" RotationFromOriginal
+TileAngle             -[#000082,plain]-^  Tile
+TileFactory           -[#595959,dashed]->  TileAngle            : "«create»"
+TileFactory           -[#595959,dashed]->  TileStraight         : "«create»"
+TileFactory           -[#595959,dashed]->  TileT                : "«create»"
+TileStraight          -[#000082,plain]-^  Tile
+TileT                 -[#000082,plain]-^  Tile
+badPlayer            "1" *-[#595959,plain]-> "_goalsList\n*" Goals
+badPlayer            "1" *-[#595959,plain]-> "_player\n1" Player
+@enduml

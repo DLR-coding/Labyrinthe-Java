@@ -1,3 +1,5 @@
+import view.GameUI;
+
 import java.io.IOException;
 
 public class Main_test4 {

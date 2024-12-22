@@ -1,3 +1,5 @@
+package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -83,7 +85,7 @@ public class GameUI extends JFrame {
     }
 
     /* public static void rotateTileTrig(JLabel tile){
-        setImage(tile, ImageHelper.rotateCounterClockwise((BufferedImage)tile.getIcon()));
+        setImage(tile, view.ImageHelper.rotateCounterClockwise((BufferedImage)tile.getIcon()));
     } */ // no current use for this
 
     private void moveRow(int row, Direction direction) throws Exception {
