@@ -4,15 +4,10 @@ Rapport 2
 
 
 ###  Classes
-- **Enum Goals** : un goal n'est un chiffre. Donc il nous a été préférable d'avoir une énumeration.
+- **Enum Goals** : pour nous, un goal n'est qu'un chiffre. Donc il nous a été préférable d'avoir une énumeration.
+  - **Player** : pas de classe pion, mais un joueur connait sa propre position. 
 
 
 
-### ~ ~ ~
-- model.Board._players ? ou _players dans model.Game seulement (dans ce cas je dois changer mon move de Colonne)
-
-- classe Pion et Players ? -> interface model.Player avec Bot et Human ?
-
-  Les joueurs sont simplement des pions qui doivent être déplacés sur le plateau, et qu'il n'y a pas d'autres informations spécifiques à chaque joueur, donc nous les considérons comme étant la même enetité et les stockons dans la classe model.Board.
 
 

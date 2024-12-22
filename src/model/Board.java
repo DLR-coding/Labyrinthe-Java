@@ -1,5 +1,4 @@
 package model;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +6,6 @@ public class Board {
     public Tile[][] _tiles;
     public Tile _extraTile;
     public List<Player> _players;
-
 
     public Board() {
         /*
@@ -77,7 +75,7 @@ public class Board {
             _tiles[i][numCol] = _tiles[i + 1][numCol];
 
             // Vérifier si un joueur est présent sur la tuile déplacée
-            for (Player player : this._players) {
+            for (Player player : _players) {
                 if (player.getPosition().getRow() == i + 1 && player.getPosition().getColumn() == numCol) {
                     player.setPosition(new Position(i, numCol));
                 }
@@ -101,7 +99,7 @@ public class Board {
             _tiles[i][numCol] = _tiles[i - 1][numCol];
 
             // Vérifier si un joueur est présent sur la tuile déplacée
-            for (Player player : this._players) {
+            for (Player player : _players) {
                 if (player.getPosition().getRow() == i - 1 && player.getPosition().getColumn() == numCol) {
                     player.setPosition(new Position(i, numCol));
                 }
@@ -125,7 +123,7 @@ public class Board {
             _tiles[numRow][i] = _tiles[numRow][i + 1];
 
             // Vérifier si un joueur est présent sur la tuile déplacée
-            for (Player player : this._players) {
+            for (Player player : _players) {
                 if (player.getPosition().getRow() == numRow && player.getPosition().getColumn() == i + 1) {
                     player.setPosition(new Position(numRow, i));
                 }
@@ -149,7 +147,7 @@ public class Board {
             _tiles[numRow][i] = _tiles[numRow][i - 1];
 
             // Vérifier si un joueur est présent sur la tuile déplacée
-            for (Player player : this._players) {
+            for (Player player : _players) {
                 if (player.getPosition().getRow() == numRow && player.getPosition().getColumn() == i - 1) {
                     player.setPosition(new Position(numRow, i));
                 }
@@ -178,8 +176,8 @@ public class Board {
         }
         //  joueur
         System.out.println("Positions des joueurs:");
-        for (Player player : this._players) {
-            System.out.print("model.Player " + this._players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ") / " );
+        for (Player player : _players) {
+            System.out.print("model.Player " + _players.indexOf(player) + " à la position: (" + player.getPosition().getRow() + ", " + player.getPosition().getColumn() + ") / " );
             if (!player._goalsList.isEmpty()) {
                 System.out.println("Current Goals : " + player._goalsList.peek().toString());
             } else {
@@ -188,9 +186,9 @@ public class Board {
         }
         // extratile
         if (this._extraTile != null) {
-            System.out.println("_extratile:" + this._extraTile.displayPaths());
+            System.out.println("_extratile :" + this._extraTile.displayPaths());
         } else {
-            System.out.println("_extratile: null");
+            System.out.println("_extratile : null");
         }
 
     }

@@ -9,14 +9,12 @@ public class Player {
     public String _name;
     public Stack<Goals> _goalsList;
 
-    public Player(Position position , int numPlayer) {
+    public Player(Position position, int numPlayer) {
         this._position = position;
         this._goalsList = new Stack<>();
         this._numPlayer = numPlayer;
         this._name = "Player " + numPlayer;
     }
-
-
 
     public boolean move(Direction direction, Board board) {
         Position newPosition = new Position(this._position.getRow(), this._position.getColumn());
@@ -48,14 +46,13 @@ public class Player {
         }
 
         if (currentTile.isPathOpen(direction) && newTile.isPathOpen(getOppositeDirection(direction))) {
-
             this._position = newPosition;
 
-            if ( newTile.goal != null && newTile.goal == this._goalsList.peek()) {
-                Goals removedGoal= this._goalsList.pop();
-                System.out.println("model.Player " + this._numPlayer + " has reached goal : " + removedGoal.toString() + " !");
+            if (newTile.goal != null && newTile.goal == this._goalsList.peek()) {
+                Goals removedGoal = this._goalsList.pop();
+                System.out.println("Player " + this._numPlayer + " has reached goal : " + removedGoal.toString() + " !");
             }
-                // ! signal observers for updateGoals()
+            // ! signal observers for updateGoals()
             return true;
         }
 

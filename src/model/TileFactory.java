@@ -20,7 +20,7 @@ public class TileFactory {
 
     public Tile createRandomTile(Goals goal) {
         Random ran = new Random();
-        RotationFromOriginal rotationFromOriginal = RotationFromOriginal.values()[ran.nextInt(5)];
+        RotationFromOriginal rotationFromOriginal = RotationFromOriginal.values()[ran.nextInt(4)];
         int type = ran.nextInt(3);
         switch (type) {
             case 0:
