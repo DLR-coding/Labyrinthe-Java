@@ -55,7 +55,7 @@ public class Game {
         _board.setTile(new Position(2, 4), tile);
         tile = tileFactory.createTileT(RotationFromOriginal.CW180, Goals.G7);
         _board.setTile(new Position(2, 6), tile);
-
+//
         tile = tileFactory.createTileT(RotationFromOriginal.DEFAULT, Goals.G8);
         _board.setTile(new Position(4, 0), tile);
         tile = tileFactory.createTileT(RotationFromOriginal.CW270, Goals.G9);
