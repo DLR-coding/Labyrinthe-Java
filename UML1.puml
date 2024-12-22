@@ -12,10 +12,26 @@ package src {
     }
 
     package view {
-        class UI {
-            + <<Create>> UI()
-            + displayWinner(player: Player)
-            + displayGame(game: Game)
+        class GameUI <<extends JFrame>> {
+            -_game : JFrame
+            -_board : JPanel
+            -_tiles : JLabel[][]
+            -_extraTile : JLabel
+
+            + <<Create>> GameUI()
+            +replicateBoard(board : Tile[][], extraTile : Tile)
+            - <<static>> setImage(tile : JLabel, image : BufferedImage)
+            - <<static>> rotateTileClockwise( tile : JLabel)
+            -moveRow(row : Integer, direction : Direction)
+            -moveColumn(column : Integer, direction : Direction)
+            -tileToLabel(tile : Tile, label : JLabel)
+        }
+
+        class ImageHelper {
+            + <<static>> merge(backgroundPath : String, foregroundPath : String) : BufferedImage
+            + <<static>> rotate(original : final BufferedImage, angle : double) : BufferedImage
+            + <<static>> rotateClockwise(original : final BufferedImage) : BufferedImage
+            + <<static>> rotateCounterClockwise(original : final BufferedImage) : BufferedImage
         }
     }
 
@@ -164,6 +180,8 @@ TileFactory   -[#595959,dashed]->  Tile        : "«uses»"
 
 GameClient    -[#595959,dashed]->  FacadeGameSetup        : "«uses»"
 GameClient    -[#595959,dashed]->  GameController        : "«uses»"
-GameClient    -[#595959,dashed]->  UI        : "«uses»"
+GameClient    -[#595959,dashed]->  GameUI        : "«uses»"
+
+GameUI -> "«uses»" ImageHelper
 
 @enduml
